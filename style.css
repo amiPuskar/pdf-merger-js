@@ -1,3 +1,4 @@
+/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -5,22 +6,31 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f5f5f5;
     color: #333;
-    line-height: 1.4;
+    line-height: 1.6;
 }
 
 .container {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
-.main-layout {
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
+/* Main Content Layout */
+.main-content {
     display: flex;
     gap: 20px;
-    min-height: 80vh;
+    height: 80vh;
 }
 
 /* Left Panel - Accordion Groups */
@@ -28,7 +38,7 @@ body {
     flex: 1;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
@@ -41,54 +51,56 @@ body {
 }
 
 .accordion-header {
+    padding: 20px;
+    background: #f8f9fa;
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
-    background: #f8f9fa;
-    cursor: pointer;
-    border-bottom: 1px solid #e9ecef;
     transition: background-color 0.2s ease;
+    border-bottom: 1px solid #e9ecef;
 }
 
 .accordion-header:hover {
     background: #e9ecef;
 }
 
-.group-title {
-    font-weight: 600;
-    font-size: 16px;
-    color: #495057;
+.accordion-header.active {
+    background: #007bff;
+    color: white;
 }
 
-.expand-icon {
-    font-size: 16px;
-    font-weight: bold;
-    color: #6c757d;
+.group-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.arrow-icon {
+    font-size: 1.2rem;
     transition: transform 0.2s ease;
-    width: 20px;
-    text-align: center;
-    display: inline-block;
+}
+
+.accordion-header.active .arrow-icon {
+    transform: rotate(90deg);
 }
 
 .accordion-content {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
-    background: white;
 }
 
-.accordion-group.active .accordion-content {
+.accordion-content.active {
     max-height: 500px;
-    overflow-y: auto;
 }
 
+/* PDF Items */
 .pdf-item {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f1f3f4;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 20px;
-    border-bottom: 1px solid #f1f3f4;
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
@@ -102,56 +114,40 @@ body {
 }
 
 .pdf-name {
-    font-size: 14px;
-    color: #495057;
-    flex: 1;
-}
-
-.add-icon {
-    font-size: 16px;
-    font-weight: bold;
-    color: #28a745;
-    width: 20px;
-    text-align: center;
-    transition: all 0.2s ease;
+    font-size: 1rem;
+    color: #007bff;
+    text-decoration: underline;
     cursor: pointer;
 }
 
-.add-icon:hover {
-    color: #1e7e34;
-    transform: scale(1.2);
+.pdf-name:hover {
+    color: #0056b3;
 }
 
-.pdf-item .remove-icon {
-    font-size: 16px;
-    font-weight: bold;
-    color: #dc3545;
-    width: 20px;
-    text-align: center;
-    transition: all 0.2s ease;
-    cursor: pointer;
-    background: #f8d7da;
+.pdf-icon {
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    border: 2px solid #dc3545;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid #28a745;
+    background: #d4edda;
+    color: #28a745;
 }
 
-.pdf-item .remove-icon:hover {
-    color: #c82333;
-    background: #f5c6cb;
+.pdf-icon:hover {
     transform: scale(1.1);
 }
 
-/* Focus styles for accessibility */
-.pdf-item:focus,
-.selected-pdf-item:focus,
-.accordion-header:focus {
-    outline: 2px solid #007bff;
-    outline-offset: 2px;
-}
-
-button:focus {
-    outline: 2px solid #007bff;
-    outline-offset: 2px;
+.pdf-icon.selected {
+    background: #dc3545;
+    color: white;
+    border-color: #dc3545;
 }
 
 /* Right Panel - My PDF Book */
@@ -159,25 +155,23 @@ button:focus {
     flex: 1;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     max-height: 80vh;
-    position: relative;
 }
 
-.pdf-book-header {
+.panel-header {
     padding: 20px;
-    border-bottom: 1px solid #e9ecef;
-    background: #f8f9fa;
-    flex-shrink: 0;
+    background: #007bff;
+    color: white;
+    border-radius: 8px 8px 0 0;
 }
 
-.pdf-book-header h2 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #495057;
+.panel-header h2 {
     margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
 .selected-pdfs {
@@ -186,11 +180,6 @@ button:focus {
     overflow-y: auto;
     min-height: 200px;
     max-height: calc(80vh - 200px);
-    border: 1px solid #e9ecef;
-    border-radius: 4px;
-    margin: 0 0 10px 0;
-    scrollbar-width: thin;
-    scrollbar-color: #c1c1c1 #f1f1f1;
 }
 
 .empty-state {
@@ -198,53 +187,56 @@ button:focus {
     color: #6c757d;
     font-style: italic;
     padding: 40px 20px;
-    font-size: 14px;
 }
 
 .selected-pdf-item {
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    background: #f8f9fa;
+    border-radius: 6px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #f1f3f4;
-}
-
-.selected-pdf-item:last-child {
-    border-bottom: none;
+    border-left: 4px solid #007bff;
 }
 
 .selected-pdf-name {
-    font-size: 14px;
+    font-size: 0.95rem;
     color: #495057;
-    flex: 1;
 }
 
 .remove-icon {
-    font-size: 16px;
-    font-weight: bold;
-    color: #dc3545;
-    width: 20px;
-    text-align: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #dc3545;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
     transition: all 0.2s ease;
 }
 
 .remove-icon:hover {
-    color: #c82333;
-    transform: scale(1.2);
+    background: #c82333;
+    transform: scale(1.1);
 }
 
+/* Action Buttons - Sticky Footer */
 .action-buttons {
     padding: 20px;
-    border-top: 1px solid #e9ecef;
     background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
     flex-shrink: 0;
     position: sticky;
     bottom: 0;
-    z-index: 10;
+    border-radius: 0 0 8px 8px;
 }
 
 .download-btn {
@@ -257,10 +249,9 @@ button:focus {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
-    width: 100%;
 }
 
-.download-btn:hover {
+.download-btn:hover:not(:disabled) {
     background: #0056b3;
     transform: translateY(-1px);
 }
@@ -272,78 +263,57 @@ button:focus {
 }
 
 .clear-link {
-    background: #6c757d;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
+    text-align: center;
+    color: #dc3545;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px;
+    border-radius: 4px;
     transition: all 0.2s ease;
-    width: 100%;
 }
 
 .clear-link:hover {
-    background: #545b62;
-    transform: translateY(-1px);
-}
-
-.clear-link.cleared {
-    background: #28a745;
-    color: white;
-}
-
-.clear-link:disabled {
-    background: #adb5bd;
-    cursor: not-allowed;
-    transform: none;
+    background: #f8d7da;
+    color: #c82333;
 }
 
 /* Scrollbar Styling */
-.accordion-content::-webkit-scrollbar,
 .selected-pdfs::-webkit-scrollbar {
     width: 6px;
 }
 
-.accordion-content::-webkit-scrollbar-track,
 .selected-pdfs::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 3px;
 }
 
-.accordion-content::-webkit-scrollbar-thumb,
 .selected-pdfs::-webkit-scrollbar-thumb {
     background: #c1c1c1;
     border-radius: 3px;
 }
 
-.accordion-content::-webkit-scrollbar-thumb:hover,
 .selected-pdfs::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .main-layout {
+    .main-content {
         flex-direction: column;
+        height: auto;
     }
     
-    .container {
-        padding: 10px;
+    .left-panel,
+    .right-panel {
+        flex: none;
+        max-height: none;
     }
     
-    .action-buttons {
-        flex-direction: column;
+    .right-panel {
+        max-height: 60vh;
     }
-}
-
-/* Loading state */
-.loading {
-    opacity: 0.6;
-    pointer-events: none;
-}
-
-.loading .download-btn {
-    background: #6c757d;
+    
+    .selected-pdfs {
+        max-height: 40vh;
+    }
 }

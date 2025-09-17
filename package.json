@@ -1,29 +1,16 @@
 {
   "name": "pdf-book-builder",
   "version": "1.0.0",
-  "description": "A web application for building PDF books by selecting and merging PDFs using pdf-merger-js",
+  "description": "A simple front-end web app for selecting and merging PDFs",
   "main": "index.html",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js",
-    "client": "npx http-server -p 8080 -o"
+    "start": "npx http-server -p 8080 -o",
+    "dev": "npx http-server -p 8080 -o"
   },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.21.2",
-    "pdf-merger-js": "^3.0.0"
-  },
+  "keywords": ["pdf", "merge", "frontend", "jquery"],
+  "author": "",
+  "license": "MIT",
   "devDependencies": {
     "http-server": "^14.1.1"
-  },
-  "keywords": [
-    "pdf",
-    "merge",
-    "javascript",
-    "jquery",
-    "web-app",
-    "book-builder"
-  ],
-  "author": "PDF Book Builder",
-  "license": "MIT"
+  }
 }
