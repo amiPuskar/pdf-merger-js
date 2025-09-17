@@ -1,0 +1,349 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.4;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.main-layout {
+    display: flex;
+    gap: 20px;
+    min-height: 80vh;
+}
+
+/* Left Panel - Accordion Groups */
+.left-panel {
+    flex: 1;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.accordion-group {
+    border-bottom: 1px solid #e9ecef;
+}
+
+.accordion-group:last-child {
+    border-bottom: none;
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #f8f9fa;
+    cursor: pointer;
+    border-bottom: 1px solid #e9ecef;
+    transition: background-color 0.2s ease;
+}
+
+.accordion-header:hover {
+    background: #e9ecef;
+}
+
+.group-title {
+    font-weight: 600;
+    font-size: 16px;
+    color: #495057;
+}
+
+.expand-icon {
+    font-size: 16px;
+    font-weight: bold;
+    color: #6c757d;
+    transition: transform 0.2s ease;
+    width: 20px;
+    text-align: center;
+    display: inline-block;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: white;
+}
+
+.accordion-group.active .accordion-content {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.pdf-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    border-bottom: 1px solid #f1f3f4;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.pdf-item:hover {
+    background: #f8f9fa;
+}
+
+.pdf-item:last-child {
+    border-bottom: none;
+}
+
+.pdf-name {
+    font-size: 14px;
+    color: #495057;
+    flex: 1;
+}
+
+.add-icon {
+    font-size: 16px;
+    font-weight: bold;
+    color: #28a745;
+    width: 20px;
+    text-align: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.add-icon:hover {
+    color: #1e7e34;
+    transform: scale(1.2);
+}
+
+.pdf-item .remove-icon {
+    font-size: 16px;
+    font-weight: bold;
+    color: #dc3545;
+    width: 20px;
+    text-align: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    background: #f8d7da;
+    border-radius: 50%;
+    border: 2px solid #dc3545;
+}
+
+.pdf-item .remove-icon:hover {
+    color: #c82333;
+    background: #f5c6cb;
+    transform: scale(1.1);
+}
+
+/* Focus styles for accessibility */
+.pdf-item:focus,
+.selected-pdf-item:focus,
+.accordion-header:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+button:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Right Panel - My PDF Book */
+.right-panel {
+    flex: 1;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+    position: relative;
+}
+
+.pdf-book-header {
+    padding: 20px;
+    border-bottom: 1px solid #e9ecef;
+    background: #f8f9fa;
+    flex-shrink: 0;
+}
+
+.pdf-book-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #495057;
+    margin: 0;
+}
+
+.selected-pdfs {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    min-height: 200px;
+    max-height: calc(80vh - 200px);
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    margin: 0 0 10px 0;
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+}
+
+.empty-state {
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+    padding: 40px 20px;
+    font-size: 14px;
+}
+
+.selected-pdf-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.selected-pdf-item:last-child {
+    border-bottom: none;
+}
+
+.selected-pdf-name {
+    font-size: 14px;
+    color: #495057;
+    flex: 1;
+}
+
+.remove-icon {
+    font-size: 16px;
+    font-weight: bold;
+    color: #dc3545;
+    width: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.remove-icon:hover {
+    color: #c82333;
+    transform: scale(1.2);
+}
+
+.action-buttons {
+    padding: 20px;
+    border-top: 1px solid #e9ecef;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-shrink: 0;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+}
+
+.download-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.download-btn:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+}
+
+.download-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.clear-link {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.clear-link:hover {
+    background: #545b62;
+    transform: translateY(-1px);
+}
+
+.clear-link.cleared {
+    background: #28a745;
+    color: white;
+}
+
+.clear-link:disabled {
+    background: #adb5bd;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Scrollbar Styling */
+.accordion-content::-webkit-scrollbar,
+.selected-pdfs::-webkit-scrollbar {
+    width: 6px;
+}
+
+.accordion-content::-webkit-scrollbar-track,
+.selected-pdfs::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.accordion-content::-webkit-scrollbar-thumb,
+.selected-pdfs::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.accordion-content::-webkit-scrollbar-thumb:hover,
+.selected-pdfs::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-layout {
+        flex-direction: column;
+    }
+    
+    .container {
+        padding: 10px;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+}
+
+/* Loading state */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading .download-btn {
+    background: #6c757d;
+}
