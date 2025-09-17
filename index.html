@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/pdf-merger-js@3.0.0/dist/pdf-merger-js.min.js"></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
 </head>
 <body>
     <div class="container">
@@ -21,15 +23,15 @@
                         <span class="arrow-icon">→</span>
                     </div>
                     <div class="accordion-content" id="sample-one">
-                        <div class="pdf-item" data-pdf="sample1.pdf">
+                        <div class="pdf-item" data-pdf="pdfs/sample1.pdf">
                             <span class="pdf-name">Sample PDF 1</span>
                             <span class="pdf-icon">+</span>
                         </div>
-                        <div class="pdf-item" data-pdf="sample2.pdf">
+                        <div class="pdf-item" data-pdf="pdfs/sample2.pdf">
                             <span class="pdf-name">Sample PDF 2</span>
                             <span class="pdf-icon">+</span>
                         </div>
-                        <div class="pdf-item" data-pdf="sample3.pdf">
+                        <div class="pdf-item" data-pdf="pdfs/sample3.pdf">
                             <span class="pdf-name">Sample PDF 3</span>
                             <span class="pdf-icon">+</span>
                         </div>
@@ -42,15 +44,15 @@
                         <span class="arrow-icon">→</span>
                     </div>
                     <div class="accordion-content" id="sample-two">
-                        <div class="pdf-item" data-pdf="sample4.pdf">
+                        <div class="pdf-item" data-pdf="pdfs/sample4.pdf">
                             <span class="pdf-name">Sample PDF 4</span>
                             <span class="pdf-icon">+</span>
                         </div>
-                        <div class="pdf-item" data-pdf="sample5.pdf">
+                        <div class="pdf-item" data-pdf="pdfs/sample5.pdf">
                             <span class="pdf-name">Sample PDF 5</span>
                             <span class="pdf-icon">+</span>
                         </div>
-                        <div class="pdf-item" data-pdf="sample6.pdf">
+                        <div class="pdf-item" data-pdf="pdfs/sample6.pdf">
                             <span class="pdf-name">Sample PDF 6</span>
                             <span class="pdf-icon">+</span>
                         </div>
@@ -70,7 +72,7 @@
                 
                 <div class="action-buttons">
                     <button id="download-btn" class="download-btn" disabled>
-                        Download My PDF Book
+                        Download Books PDF
                     </button>
                     <a href="#" id="clear-all" class="clear-link">Clear All</a>
                 </div>
