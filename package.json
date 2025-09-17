@@ -1,5 +1,5 @@
 {
-  "name": "pdf-book-builder",
+  "name": "js-pdf-merger",
   "version": "1.0.0",
   "description": "A simple front-end web app for selecting and merging PDFs",
   "main": "index.html",
