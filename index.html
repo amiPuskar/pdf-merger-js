@@ -86,19 +86,40 @@
 
             <!-- Right Side - My PDF Book -->
             <div class="right-panel">
-                <div class="panel-header">
-                    <h2>Selected PDFs</h2>
+                <!-- Panel Header - Desktop: Static, Mobile: Accordion Header -->
+                <div class="panel-header" data-group="mobile-selected">
+                    <h2>Selected PDFs (<span id="pdf-count">0</span>)</h2>
+                    <span class="arrow-icon mobile-only">→</span>
                 </div>
                 
-                <div class="selected-pdfs" id="selected-pdfs">
-                    <div class="empty-state">No PDFs selected</div>
+                <!-- Desktop: Always visible -->
+                <div class="desktop-selected-content">
+                    <div class="selected-pdfs" id="selected-pdfs">
+                        <div class="empty-state">No PDFs selected</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button id="download-btn" class="download-btn" disabled>
+                            Download Merged PDF
+                        </button>
+                        <a href="#" id="clear-all" class="clear-link">Clear All</a>
+                    </div>
                 </div>
                 
-                <div class="action-buttons">
-                    <button id="download-btn" class="download-btn" disabled>
-                        Download Merged PDF
-                    </button>
-                    <a href="#" id="clear-all" class="clear-link">Clear All</a>
+                <!-- Mobile/Tablet: Accordion Content -->
+                <div class="mobile-selected-accordion">
+                    <div class="accordion-content" id="mobile-selected-content">
+                        <div class="selected-pdfs-mobile" id="selected-pdfs-mobile">
+                            <div class="empty-state">No PDFs selected</div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button id="download-btn-mobile" class="download-btn" disabled>
+                                Download Merged PDF
+                            </button>
+                            <a href="#" id="clear-all-mobile" class="clear-link">Clear All</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

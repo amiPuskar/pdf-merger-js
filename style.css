@@ -163,17 +163,47 @@ h1 {
     max-height: 80vh;
 }
 
+/* Desktop: Show desktop content, hide mobile accordion */
+.desktop-selected-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-selected-accordion {
+    display: none;
+}
+
 .panel-header {
     padding: 20px;
     background: #007bff;
     color: white;
     border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.panel-header:hover {
+    background: #0056b3;
 }
 
 .panel-header h2 {
     margin: 0;
     font-size: 1.5rem;
     font-weight: 600;
+}
+
+.arrow-icon.mobile-only {
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+    display: none;
+}
+
+.panel-header.active .arrow-icon.mobile-only {
+    transform: rotate(90deg);
 }
 
 .selected-pdfs {
@@ -305,6 +335,7 @@ h1 {
 @media (max-width: 768px) {
     .container {
         padding: 10px;
+        padding-bottom: 80px; /* Add space for fixed right panel */
     }
     
     h1 {
@@ -318,18 +349,69 @@ h1 {
         gap: 15px;
     }
     
-    .left-panel,
-    .right-panel {
+    .left-panel {
         flex: none;
         max-height: none;
     }
     
     .right-panel {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
         max-height: 60vh;
+        border-radius: 8px 8px 0 0;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        margin: 0;
     }
     
-    .selected-pdfs {
-        max-height: 40vh;
+    /* Mobile/Tablet: Hide desktop content, show mobile accordion */
+    .desktop-selected-content {
+        display: none;
+    }
+    
+    .mobile-selected-accordion {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+    
+    .mobile-selected-accordion .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+    
+    .mobile-selected-accordion .accordion-content.active {
+        max-height: 50vh;
+    }
+    
+    .selected-pdfs-mobile {
+        max-height: 30vh;
+        overflow-y: auto;
+    }
+    
+    /* Show arrow icon on mobile */
+    .arrow-icon.mobile-only {
+        display: block;
+    }
+    
+    /* Make panel header clickable on mobile */
+    .panel-header {
+        cursor: pointer;
+        border-radius: 8px 8px 0 0;
+    }
+    
+    /* Ensure mobile content is properly contained */
+    .mobile-selected-content {
+        background: white;
+        border-radius: 0 0 8px 8px;
+    }
+    
+    /* Add some margin to prevent content from being hidden behind fixed panel */
+    .left-panel {
+        margin-bottom: 20px;
     }
     
     .accordion-header {
@@ -367,6 +449,7 @@ h1 {
 @media (max-width: 480px) {
     .container {
         padding: 5px;
+        padding-bottom: 70px; /* Adjust for smaller screens */
     }
     
     h1 {
@@ -376,6 +459,10 @@ h1 {
     
     .main-content {
         gap: 10px;
+    }
+    
+    .right-panel {
+        max-height: 50vh; /* Smaller max height on very small screens */
     }
     
     .accordion-header {
