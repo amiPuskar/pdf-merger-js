@@ -117,6 +117,7 @@ h1 {
     font-size: 1rem;
     color: #004cab;
     cursor: pointer;
+    font-weight: 500;
 }
 
 .pdf-name:hover {
@@ -271,7 +272,7 @@ h1 {
 
 .download-btn {
     background: #fdbb30;
-    color: #FFFFFF;
+    color: #004cab;
     border: none;
     padding: 12px 24px;
     border-radius: 6px;
