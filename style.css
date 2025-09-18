@@ -52,7 +52,7 @@ h1 {
 
 .accordion-header {
     padding: 20px;
-    background: #f8f9fa;
+    background: #fcba2b;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -115,7 +115,7 @@ h1 {
 
 .pdf-name {
     font-size: 1rem;
-    color: #007bff;
+    color: #004cab;
     text-decoration: underline;
     cursor: pointer;
 }
@@ -176,8 +176,8 @@ h1 {
 
 .panel-header {
     padding: 20px;
-    background: #007bff;
-    color: white;
+    background: #fcba2b;
+    color: #004cab;
     border-radius: 8px 8px 0 0;
     display: flex;
     justify-content: space-between;
@@ -187,7 +187,7 @@ h1 {
 }
 
 .panel-header:hover {
-    background: #0056b3;
+    background: #fcba2b;
 }
 
 .panel-header h2 {
@@ -210,7 +210,7 @@ h1 {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-    min-height: 200px;
+    min-height: calc(80vh - 200px);
     max-height: calc(80vh - 200px);
 }
 
@@ -229,7 +229,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-left: 4px solid #007bff;
+    border-left: 4px solid #00616a;
 }
 
 .selected-pdf-name {
@@ -272,8 +272,8 @@ h1 {
 }
 
 .download-btn {
-    background: #007bff;
-    color: white;
+    background: #fdbb30;
+    color: #FFFFFF;
     border: none;
     padding: 12px 24px;
     border-radius: 6px;
@@ -293,6 +293,7 @@ h1 {
 
 .download-btn:disabled {
     background: #6c757d;
+    color: #FFFFFF;
     cursor: not-allowed;
     transform: none;
 }
