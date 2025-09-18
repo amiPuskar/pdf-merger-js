@@ -366,28 +366,18 @@ h1 {
         margin: 0;
     }
     
-    /* Mobile/Tablet: Hide desktop content, show mobile accordion */
-    .desktop-selected-content {
-        display: none;
-    }
-    
-    .mobile-selected-accordion {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-    }
-    
-    .mobile-selected-accordion .accordion-content {
+    /* Mobile/Tablet: Show selected content as accordion */
+    .selected-content {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.3s ease;
     }
     
-    .mobile-selected-accordion .accordion-content.active {
+    .selected-content.active {
         max-height: 50vh;
     }
     
-    .selected-pdfs-mobile {
+    .selected-pdfs {
         max-height: 30vh;
         overflow-y: auto;
     }
@@ -404,7 +394,7 @@ h1 {
     }
     
     /* Ensure mobile content is properly contained */
-    .mobile-selected-content {
+    .selected-content {
         background: white;
         border-radius: 0 0 8px 8px;
     }

@@ -4,12 +4,12 @@ $(document).ready(function () {
     // Accordion toggle
     $('.accordion-header, .panel-header').click(function () {
         const $this = $(this);
-        const $accordionGroup = $this.closest('.accordion-group, .mobile-selected-accordion, .right-panel');
-        const $accordionContent = $accordionGroup.find('.accordion-content, .mobile-selected-content');
+        const $accordionGroup = $this.closest('.accordion-group, .right-panel');
+        const $accordionContent = $accordionGroup.find('.accordion-content, .selected-content');
         const $arrowIcon = $this.find('.arrow-icon');
 
-        // Only close other accordions if it's not the mobile selected accordion
-        if (!$accordionGroup.hasClass('mobile-selected-accordion') && !$accordionGroup.hasClass('right-panel')) {
+        // Only close other accordions if it's not the right panel
+        if (!$accordionGroup.hasClass('right-panel')) {
             $('.accordion-group').not($accordionGroup).removeClass('active');
             $('.accordion-content').not($accordionContent).removeClass('active');
             $('.arrow-icon').not($arrowIcon).text('→');
@@ -55,13 +55,13 @@ $(document).ready(function () {
     });
 
     // Clear all
-    $('#clear-all, #clear-all-mobile').click(function (e) {
+    $('#clear-all').click(function (e) {
         e.preventDefault();
         clearAllPDFs();
     });
     
-    // Download merged PDF (both desktop and mobile)
-    $('#download-btn, #download-btn-mobile').click(function () {
+    // Download merged PDF
+    $('#download-btn').click(function () {
         if (selectedPDFs.length === 0) {
             alert('Please select at least one PDF to merge.');
             return;
@@ -84,10 +84,9 @@ $(document).ready(function () {
             </div>
         `);
 
-        // Update both desktop and mobile versions
+        // Update selected list
         $('.empty-state').remove();
         $('#selected-pdfs').append(selectedItem);
-        $('#selected-pdfs-mobile').append(selectedItem.clone());
         updateDownloadButton();
     }
 
@@ -96,12 +95,11 @@ $(document).ready(function () {
         selectedPDFs = selectedPDFs.filter(pdf => pdf !== pdfName);
         $icon.removeClass('selected').text('+');
 
-        // Remove from both desktop and mobile versions
+        // Remove from selected list
         $(`.selected-pdf-item[data-pdf="${pdfName}"]`).remove();
 
         if (selectedPDFs.length === 0) {
             $('#selected-pdfs').html('<div class="empty-state">No PDFs selected</div>');
-            $('#selected-pdfs-mobile').html('<div class="empty-state">No PDFs selected</div>');
         }
 
         updateDownloadButton();
@@ -112,17 +110,14 @@ $(document).ready(function () {
         selectedPDFs = [];
         $('.pdf-icon').removeClass('selected').text('+');
         $('#selected-pdfs').html('<div class="empty-state">No PDFs selected</div>');
-        $('#selected-pdfs-mobile').html('<div class="empty-state">No PDFs selected</div>');
         updateDownloadButton();
     }
 
     // update download button and PDF count
     function updateDownloadButton() {
         const $downloadBtn = $('#download-btn');
-        const $downloadBtnMobile = $('#download-btn-mobile');
         
         $downloadBtn.prop('disabled', selectedPDFs.length === 0);
-        $downloadBtnMobile.prop('disabled', selectedPDFs.length === 0);
         
         // Update PDF count
         $('#pdf-count').text(selectedPDFs.length);
