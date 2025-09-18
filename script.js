@@ -15,15 +15,28 @@ $(document).ready(function () {
             $('.arrow-icon').not($arrowIcon).text('→');
         }
 
+        // Toggle this accordion/panel
+        const isActive = $accordionGroup.hasClass('active');
         $accordionGroup.toggleClass('active');
         $accordionContent.toggleClass('active');
 
         if ($accordionGroup.hasClass('active')) {
             $arrowIcon.text('↓');
+
+            // If it's the right panel, add overlay active class
+            if ($accordionGroup.hasClass('right-panel')) {
+                $('.panel-accordion-overlay').addClass('active');
+            }
         } else {
             $arrowIcon.text('→');
+
+            // If it's the right panel, remove overlay active class
+            if ($accordionGroup.hasClass('right-panel')) {
+                $('.panel-accordion-overlay').removeClass('active');
+            }
         }
     });
+
 
     // PDF name click - download single PDF
     $('.pdf-name').click(function (e) {
@@ -59,7 +72,7 @@ $(document).ready(function () {
         e.preventDefault();
         clearAllPDFs();
     });
-    
+
     // Download merged PDF
     $('#download-btn').click(function () {
         if (selectedPDFs.length === 0) {
@@ -116,9 +129,9 @@ $(document).ready(function () {
     // update download button and PDF count
     function updateDownloadButton() {
         const $downloadBtn = $('#download-btn');
-        
+
         $downloadBtn.prop('disabled', selectedPDFs.length === 0);
-        
+
         // Update PDF count
         $('#pdf-count').text(selectedPDFs.length);
     }
