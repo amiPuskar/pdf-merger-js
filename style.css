@@ -186,9 +186,9 @@ h1 {
 }
 
 /* Font Awesome base styles */
-.fa-plus, 
-.fa-times, 
-.fa-chevron-right, 
+.fa-plus,
+.fa-times,
+.fa-chevron-right,
 .fa-chevron-down {
     display: inline-block;
     vertical-align: middle;
@@ -201,7 +201,7 @@ h1 {
 }
 
 /* Font Awesome icon optimization */
-.pdf-icon i, 
+.pdf-icon i,
 .remove-icon i {
     line-height: 1;
     display: block;
@@ -218,7 +218,7 @@ h1 {
         padding: 14px 16px;
         gap: 10px;
     }
-    
+
     .selected-pdf-item {
         padding: 12px 14px;
         gap: 10px;
@@ -441,7 +441,7 @@ h1 {
     background: #a8a8a8;
 }
 
-.panel-accordion-overlay.active{
+.panel-accordion-overlay.active {
     position: fixed;
     top: 0;
     left: 0;
@@ -454,27 +454,28 @@ h1 {
 @media (max-width: 768px) {
     .container {
         padding: 10px;
-        padding-bottom: 80px; /* Add space for fixed right panel */
+        padding-bottom: 80px;
+        /* Add space for fixed right panel */
     }
-    
+
     h1 {
         font-size: 2rem;
         margin-bottom: 20px;
     }
-    
+
     .main-content {
         flex-direction: column;
         height: auto;
         gap: 15px;
         flex-wrap: wrap;
     }
-    
+
     .left-panel {
         flex: 1 1 100%;
         max-height: none;
         order: 1;
     }
-    
+
     .right-panel {
         position: fixed;
         bottom: 0;
@@ -488,74 +489,74 @@ h1 {
         flex: none;
         order: 2;
     }
-    
+
     /* Mobile/Tablet: Show selected content as accordion */
     .selected-content {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.3s ease;
     }
-    
+
     .selected-content.active {
         max-height: 50vh;
     }
-    
+
     .selected-pdfs {
         max-height: 30vh;
         overflow-y: auto;
     }
-    
+
     /* Show arrow icon on mobile */
     .arrow-icon.mobile-only {
         display: inline-flex;
         align-items: center;
         justify-content: center;
     }
-    
+
     /* Make panel header clickable on mobile */
     .panel-header {
         cursor: pointer;
         border-radius: 8px 8px 0 0;
     }
-    
+
     /* Ensure mobile content is properly contained */
     .selected-content {
         background: white;
         border-radius: 0 0 8px 8px;
     }
-    
+
     /* Add some margin to prevent content from being hidden behind fixed panel */
     .left-panel {
         margin-bottom: 20px;
     }
-    
+
     .accordion-header {
         padding: 15px;
     }
-    
+
     .group-title {
         font-size: 1.1rem;
     }
-    
+
     .pdf-item {
         padding: 12px 15px;
     }
-    
+
     .pdf-name {
         font-size: 0.9rem;
     }
-    
+
     .pdf-icon {
         width: 30px;
         height: 30px;
         font-size: 12px;
         flex-shrink: 0;
     }
-    
+
     .action-buttons {
         padding: 15px;
     }
-    
+
     .download-btn {
         padding: 10px 20px;
         font-size: 14px;
@@ -565,71 +566,73 @@ h1 {
 @media (max-width: 480px) {
     .container {
         padding: 5px;
-        padding-bottom: 70px; /* Adjust for smaller screens */
+        padding-bottom: 70px;
+        /* Adjust for smaller screens */
     }
-    
+
     h1 {
         font-size: 1.8rem;
         margin-bottom: 15px;
     }
-    
+
     .main-content {
         gap: 10px;
     }
-    
+
     .right-panel {
-        max-height: 50vh; /* Smaller max height on very small screens */
+        max-height: 50vh;
+        /* Smaller max height on very small screens */
     }
-    
+
     .accordion-header {
         padding: 12px;
     }
-    
+
     .group-title {
         font-size: 1rem;
     }
-    
+
     .pdf-item {
         padding: 10px 12px;
     }
-    
+
     .pdf-name {
         font-size: 0.85rem;
     }
-    
+
     .pdf-icon {
         width: 28px;
         height: 28px;
         font-size: 11px;
         flex-shrink: 0;
     }
-    
+
     .selected-pdf-item {
         padding: 10px 12px;
         margin-bottom: 6px;
     }
-    
+
     .selected-pdf-name {
         font-size: 0.85rem;
     }
-    
+
     .remove-icon {
         width: 24px;
         height: 24px;
         font-size: 10px;
         flex-shrink: 0;
     }
-    
+
     .action-buttons {
         padding: 12px;
         gap: 8px;
     }
-    
+
     .download-btn {
         padding: 8px 16px;
         font-size: 13px;
     }
-    
+
     .clear-link {
         font-size: 13px;
         padding: 6px;
