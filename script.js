@@ -145,6 +145,24 @@ $(document).ready(function () {
         e.preventDefault();
         clearAllPDFs();
     });
+
+    // Close accordion when clicking on overlay
+    $('.panel-accordion-overlay').click(function () {
+        const $rightPanel = $('.right-panel');
+        const $panelHeader = $rightPanel.find('.panel-header');
+        const $selectedContent = $rightPanel.find('.selected-content');
+        const $arrowIcon = $panelHeader.find('.arrow-icon');
+        
+        // Close the accordion
+        $rightPanel.removeClass('active');
+        $selectedContent.removeClass('active');
+        $arrowIcon.removeClass('fa-chevron-down').addClass('fa-chevron-right');
+        $panelHeader.attr('aria-expanded', 'false');
+        $selectedContent.attr('aria-hidden', 'true');
+        
+        // Remove overlay
+        $('.panel-accordion-overlay').removeClass('active');
+    });
     
     // Download merged PDF
     $('#download-btn').click(function () {
