@@ -13,12 +13,14 @@
 
 <body>
     <div class="container">
-        <h1>JS PDF Merger</h1>
+        <header role="banner">
+            <h1>JS PDF Merger</h1>
+        </header>
 
-        <div class="main-content" role="main">
+        <main class="main-content" role="main" aria-label="PDF Merger Application">
             <!-- Left Side - Accordion Groups -->
-            <div class="left-panel">
-                <div class="accordion-group">
+            <section class="left-panel" role="region" aria-label="PDF Selection Area">
+                <section class="accordion-group" role="group" aria-label="Sample PDFs One">
                     <div class="accordion-header" data-group="sample-one" role="button" tabindex="0"
                         aria-expanded="false" aria-controls="sample-one" id="sample-one-header"
                         aria-label="Toggle Sample PDFs One section">
@@ -70,9 +72,9 @@
                                 aria-label="Add Sample PDF 6 to selection"></i>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                <div class="accordion-group">
+                <section class="accordion-group" role="group" aria-label="Sample PDFs Two">
                     <div class="accordion-header" data-group="sample-two" role="button" tabindex="0"
                         aria-expanded="false" aria-controls="sample-two" id="sample-two-header"
                         aria-label="Toggle Sample PDFs Two section">
@@ -124,11 +126,11 @@
                                 aria-label="Add Sample PDF 12 to selection"></i>
                         </div>
                     </div>
-                </div>
-            </div>
+                </section>
+            </section>
 
             <!-- Right Side - My PDF Book -->
-            <div class="right-panel">
+            <aside class="right-panel" role="complementary" aria-label="Selected PDFs Panel">
                 <!-- Panel Header - Desktop: Static, Mobile: Accordion Header -->
                 <div class="panel-header" data-group="mobile-selected" role="button" tabindex="0" aria-expanded="false"
                     aria-controls="selected-content" aria-label="Toggle selected PDFs panel">
@@ -153,9 +155,14 @@
                         </button>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="panel-accordion-overlay"></div>
+            </aside>
+        </main>
+
+        <footer role="contentinfo" aria-label="Application Footer">
+            <p>JS PDF Merger - Built with accessibility in mind</p>
+        </footer>
+
+        <div class="panel-accordion-overlay" aria-hidden="true"></div>
     </div>
 
     <script src="script.js"></script>

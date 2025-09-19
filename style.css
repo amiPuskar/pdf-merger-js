@@ -505,62 +505,88 @@ h1 {
         max-height: 30vh;
         overflow-y: auto;
     }
+}
 
-    /* Show arrow icon on mobile */
+/* Hidden Footer for Accessibility */
+footer[role="contentinfo"] {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-size: 0;
+    line-height: 0;
+}
+
+/* Hide arrow icon on desktop, show on mobile/tablet */
+.arrow-icon.mobile-only {
+    display: none;
+}
+
+@media (max-width: 768px) {
     .arrow-icon.mobile-only {
         display: inline-flex;
         align-items: center;
         justify-content: center;
     }
+}
 
-    /* Make panel header clickable on mobile */
+/* Make panel header clickable only on mobile/tablet */
+.panel-header {
+    border-radius: 8px 8px 0 0;
+}
+
+@media (max-width: 768px) {
     .panel-header {
         cursor: pointer;
-        border-radius: 8px 8px 0 0;
     }
+}
 
-    /* Ensure mobile content is properly contained */
-    .selected-content {
-        background: white;
-        border-radius: 0 0 8px 8px;
-    }
+/* Ensure mobile content is properly contained */
+.selected-content {
+    background: white;
+    border-radius: 0 0 8px 8px;
+}
 
-    /* Add some margin to prevent content from being hidden behind fixed panel */
-    .left-panel {
-        margin-bottom: 20px;
-    }
+/* Add some margin to prevent content from being hidden behind fixed panel */
+.left-panel {
+    margin-bottom: 20px;
+}
 
-    .accordion-header {
-        padding: 15px;
-    }
+.accordion-header {
+    padding: 15px;
+}
 
-    .group-title {
-        font-size: 1.1rem;
-    }
+.group-title {
+    font-size: 1.1rem;
+}
 
-    .pdf-item {
-        padding: 12px 15px;
-    }
+.pdf-item {
+    padding: 12px 15px;
+}
 
-    .pdf-name {
-        font-size: 0.9rem;
-    }
+.pdf-name {
+    font-size: 0.9rem;
+}
 
-    .pdf-icon {
-        width: 30px;
-        height: 30px;
-        font-size: 12px;
-        flex-shrink: 0;
-    }
+.pdf-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+    flex-shrink: 0;
+}
 
-    .action-buttons {
-        padding: 15px;
-    }
+.action-buttons {
+    padding: 15px;
+}
 
-    .download-btn {
-        padding: 10px 20px;
-        font-size: 14px;
-    }
+.download-btn {
+    padding: 10px 20px;
+    font-size: 14px;
 }
 
 @media (max-width: 480px) {
