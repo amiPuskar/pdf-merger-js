@@ -84,7 +84,16 @@ pdf-merger-js/
 ├── pdfs/               # PDF files directory
 │   ├── sample1.pdf
 │   ├── sample2.pdf
-│   └── ...
+│   ├── sample3.pdf
+│   ├── sample4.pdf
+│   ├── sample5.pdf
+│   ├── sample6.pdf
+│   ├── sample7.pdf
+│   ├── sample8.pdf
+│   ├── sample9.pdf
+│   ├── sample10.pdf
+│   ├── sample11.pdf
+│   └── sample12.pdf
 └── README.md           # This file
 ```
 
@@ -113,9 +122,19 @@ pdf-merger-js/
 1. **Place PDF Files**
    ```html
    <!-- Add your PDFs to the accordion groups -->
-   <div class="pdf-item" data-pdf="pdfs/your-file.pdf">
-       <span class="pdf-name">Your PDF Name</span>
-       <span class="pdf-icon">+</span>
+   <div class="pdf-item" 
+        data-pdf="pdfs/your-file.pdf" 
+        role="listitem"
+        tabindex="0" 
+        aria-label="Add Your PDF Name to selection">
+       <span class="pdf-name" 
+             role="button" 
+             tabindex="-1" 
+             aria-label="Download Your PDF Name">Your PDF Name</span>
+       <i class="fas fa-plus pdf-icon" 
+          role="button" 
+          tabindex="-1" 
+          aria-label="Add Your PDF Name to selection"></i>
    </div>
    ```
 
@@ -123,22 +142,26 @@ pdf-merger-js/
    - Modify the accordion groups in `index.html`
    - Add or remove PDF items as needed
    - Update group titles and descriptions
+   - Currently includes 12 sample PDFs (sample1.pdf to sample12.pdf)
 
 ### Using the Application
 
 #### Desktop Experience
 1. **Select PDFs**: Click the ➕ icon next to PDF names
 2. **View Selection**: See selected PDFs in the right panel
-3. **Download**: Click "Download Merged PDF" to get the combined file
-4. **Clear**: Use "Clear All" to remove all selections
-5. **Keyboard**: Use Tab, Arrow keys, Enter, and Space for navigation
+3. **Download**: Click "Download Books PDF" to get the combined file
+4. **Individual Downloads**: Click on PDF names to download single files
+5. **Clear**: Use "Clear All" to remove all selections
+6. **Keyboard**: Use Tab, Arrow keys, Enter, and Space for navigation
 
 #### Mobile Experience
 1. **Select PDFs**: Tap the ➕ icon to add PDFs
-2. **View Selection**: Tap the panel header to expand/collapse
-3. **Download**: Tap "Download Merged PDF" when ready
-4. **Clear**: Use "Clear All" to remove selections
-5. **Touch Optimized**: Large touch targets and smooth interactions
+2. **View Selection**: Tap the panel header to expand/collapse selected PDFs
+3. **Download**: Tap "Download Books PDF" when ready
+4. **Individual Downloads**: Tap on PDF names to download single files
+5. **Clear**: Use "Clear All" to remove selections
+6. **Touch Optimized**: Large touch targets and smooth interactions
+7. **Overlay**: Dark overlay appears when panel is expanded, tap to close
 
 ### Customization
 
@@ -180,8 +203,8 @@ data-pdf="pdfs/your-file.pdf"
 <!-- Font Awesome icons used -->
 <i class="fas fa-plus pdf-icon"></i>        <!-- Add PDF -->
 <i class="fas fa-times remove-icon"></i>    <!-- Remove PDF -->
-<i class="fas fa-chevron-right"></i>        <!-- Accordion closed -->
-<i class="fas fa-chevron-down"></i>         <!-- Accordion open -->
+<i class="fas fa-chevron-right arrow-icon"></i>  <!-- Accordion closed -->
+<i class="fas fa-chevron-down arrow-icon"></i>   <!-- Accordion open -->
 ```
 
 ### Responsive Breakpoints
@@ -196,11 +219,30 @@ data-pdf="pdfs/your-file.pdf"
 ### Accessibility Features
 ```html
 <!-- ARIA attributes for screen readers -->
-<div role="button" 
+<div class="accordion-header" 
+     role="button" 
      aria-expanded="false" 
-     aria-controls="content"
+     aria-controls="sample-one"
+     aria-label="Toggle Sample One section"
      tabindex="0">
-    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+    <span class="group-title">Sample One</span>
+    <i class="fas fa-chevron-right arrow-icon" aria-hidden="true"></i>
+</div>
+
+<!-- PDF items with proper accessibility -->
+<div class="pdf-item" 
+     data-pdf="pdfs/sample1.pdf" 
+     role="listitem"
+     tabindex="0" 
+     aria-label="Add Sample PDF 1 to selection">
+    <span class="pdf-name" 
+          role="button" 
+          tabindex="-1" 
+          aria-label="Download Sample PDF 1">Sample PDF 1</span>
+    <i class="fas fa-plus pdf-icon" 
+       role="button" 
+       tabindex="-1" 
+       aria-label="Add Sample PDF 1 to selection"></i>
 </div>
 ```
 
