@@ -1,9 +1,8 @@
 $(document).ready(function () {
     let selectedPDFs = [];
 
-    // Accordion toggle
-    $('.accordion-header, .panel-header').click(function () {
-        const $this = $(this);
+    // Accordion toggle function
+    function toggleAccordion($this) {
         const $accordionGroup = $this.closest('.accordion-group, .right-panel');
         const $accordionContent = $accordionGroup.find('.accordion-content, .selected-content');
         const $arrowIcon = $this.find('.arrow-icon');
@@ -20,6 +19,10 @@ $(document).ready(function () {
         $accordionGroup.toggleClass('active');
         $accordionContent.toggleClass('active');
 
+        // Update ARIA attributes
+        $this.attr('aria-expanded', !isActive);
+        $accordionContent.attr('aria-hidden', isActive);
+
         if ($accordionGroup.hasClass('active')) {
             $arrowIcon.text('↓');
 
@@ -34,6 +37,46 @@ $(document).ready(function () {
             if ($accordionGroup.hasClass('right-panel')) {
                 $('.panel-accordion-overlay').removeClass('active');
             }
+        }
+    }
+
+    // Accordion toggle - click and keyboard
+    $('.accordion-header, .panel-header').on('click keydown', function (e) {
+        // Handle both click and Enter/Space key
+        if (e.type === 'click' || (e.type === 'keydown' && (e.key === 'Enter' || e.key === ' '))) {
+            e.preventDefault();
+            toggleAccordion($(this));
+        }
+    });
+
+    // Keyboard navigation for PDF items
+    $('.pdf-item').on('keydown', function (e) {
+        const $this = $(this);
+        const $pdfItems = $('.pdf-item');
+        const currentIndex = $pdfItems.index(this);
+        
+        switch (e.key) {
+            case 'ArrowDown':
+                e.preventDefault();
+                const nextIndex = (currentIndex + 1) % $pdfItems.length;
+                $pdfItems.eq(nextIndex).focus();
+                break;
+            case 'ArrowUp':
+                e.preventDefault();
+                const prevIndex = currentIndex === 0 ? $pdfItems.length - 1 : currentIndex - 1;
+                $pdfItems.eq(prevIndex).focus();
+                break;
+            case 'Enter':
+            case ' ':
+                e.preventDefault();
+                const $icon = $this.find('.pdf-icon');
+                const pdfName = $this.data('pdf');
+                if ($icon.hasClass('selected')) {
+                    removePDFFromSelection(pdfName, $icon);
+                } else {
+                    addPDFToSelection(pdfName, $icon);
+                }
+                break;
         }
     });
 
@@ -59,12 +102,42 @@ $(document).ready(function () {
         }
     });
 
-    // Remove PDF from selection
-    $(document).on('click', '.remove-icon', function (e) {
-        e.stopPropagation();
-        const pdfName = $(this).closest('.selected-pdf-item').data('pdf');
-        const $leftIcon = $(`.pdf-item[data-pdf="${pdfName}"] .pdf-icon`);
-        removePDFFromSelection(pdfName, $leftIcon);
+    // Remove PDF from selection - click and keyboard
+    $(document).on('click keydown', '.remove-icon', function (e) {
+        if (e.type === 'click' || (e.type === 'keydown' && (e.key === 'Enter' || e.key === ' '))) {
+            e.stopPropagation();
+            e.preventDefault();
+            const pdfName = $(this).closest('.selected-pdf-item').data('pdf');
+            const $leftIcon = $(`.pdf-item[data-pdf="${pdfName}"] .pdf-icon`);
+            removePDFFromSelection(pdfName, $leftIcon);
+        }
+    });
+
+    // Keyboard navigation for selected PDF items
+    $(document).on('keydown', '.selected-pdf-item', function (e) {
+        const $this = $(this);
+        const $selectedItems = $('.selected-pdf-item');
+        const currentIndex = $selectedItems.index(this);
+        
+        switch (e.key) {
+            case 'ArrowDown':
+                e.preventDefault();
+                const nextIndex = (currentIndex + 1) % $selectedItems.length;
+                $selectedItems.eq(nextIndex).focus();
+                break;
+            case 'ArrowUp':
+                e.preventDefault();
+                const prevIndex = currentIndex === 0 ? $selectedItems.length - 1 : currentIndex - 1;
+                $selectedItems.eq(prevIndex).focus();
+                break;
+            case 'Enter':
+            case ' ':
+                e.preventDefault();
+                const pdfName = $this.data('pdf');
+                const $leftIcon = $(`.pdf-item[data-pdf="${pdfName}"] .pdf-icon`);
+                removePDFFromSelection(pdfName, $leftIcon);
+                break;
+        }
     });
 
     // Clear all
@@ -88,12 +161,20 @@ $(document).ready(function () {
 
         selectedPDFs.push(pdfName);
         $icon.addClass('selected').text('×');
+        $icon.attr('aria-label', $icon.attr('aria-label').replace('Add', 'Remove'));
 
         const pdfDisplayName = $icon.siblings('.pdf-name').text();
         const selectedItem = $(`
-            <div class="selected-pdf-item" data-pdf="${pdfName}">
+            <div class="selected-pdf-item" 
+                 data-pdf="${pdfName}" 
+                 role="listitem"
+                 tabindex="0"
+                 aria-label="${pdfDisplayName}, press Enter or Space to remove from selection">
                 <span class="selected-pdf-name">${pdfDisplayName}</span>
-                <span class="remove-icon">×</span>
+                <span class="remove-icon" 
+                      role="button" 
+                      tabindex="-1"
+                      aria-label="Remove ${pdfDisplayName} from selection">×</span>
             </div>
         `);
 
@@ -107,12 +188,13 @@ $(document).ready(function () {
     function removePDFFromSelection(pdfName, $icon) {
         selectedPDFs = selectedPDFs.filter(pdf => pdf !== pdfName);
         $icon.removeClass('selected').text('+');
+        $icon.attr('aria-label', $icon.attr('aria-label').replace('Remove', 'Add'));
 
         // Remove from selected list
         $(`.selected-pdf-item[data-pdf="${pdfName}"]`).remove();
 
         if (selectedPDFs.length === 0) {
-            $('#selected-pdfs').html('<div class="empty-state">No PDFs selected</div>');
+            $('#selected-pdfs').html('<div class="empty-state" role="status" aria-live="polite">No PDFs selected</div>');
         }
 
         updateDownloadButton();
@@ -122,7 +204,10 @@ $(document).ready(function () {
     function clearAllPDFs() {
         selectedPDFs = [];
         $('.pdf-icon').removeClass('selected').text('+');
-        $('#selected-pdfs').html('<div class="empty-state">No PDFs selected</div>');
+        $('.pdf-icon').attr('aria-label', function(i, label) {
+            return label.replace('Remove', 'Add');
+        });
+        $('#selected-pdfs').html('<div class="empty-state" role="status" aria-live="polite">No PDFs selected</div>');
         updateDownloadButton();
     }
 

@@ -18,67 +18,209 @@
             <!-- Left Side - Accordion Groups -->
             <div class="left-panel">
                 <div class="accordion-group">
-                    <div class="accordion-header" data-group="sample-one">
+                    <div class="accordion-header" 
+                         data-group="sample-one" 
+                         role="button" 
+                         tabindex="0" 
+                         aria-expanded="false" 
+                         aria-controls="sample-one"
+                         id="sample-one-header"
+                         aria-label="Toggle Sample PDFs One section">
                         <span class="group-title">Sample PDFs One</span>
-                        <span class="arrow-icon">→</span>
+                        <span class="arrow-icon" aria-hidden="true">→</span>
                     </div>
-                    <div class="accordion-content" id="sample-one">
-                        <div class="pdf-item" data-pdf="pdfs/sample1.pdf">
-                            <span class="pdf-name">Sample PDF 1</span>
-                            <span class="pdf-icon">+</span>
+                    <div class="accordion-content" 
+                         id="sample-one" 
+                         role="region" 
+                         aria-labelledby="sample-one-header"
+                         aria-hidden="true">
+                        <div class="pdf-item" 
+                             data-pdf="pdfs/sample1.pdf" 
+                             role="listitem"
+                             tabindex="0"
+                             aria-label="Sample PDF 1, click to download or press + to add to selection">
+                            <span class="pdf-name" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Download Sample PDF 1">Sample PDF 1</span>
+                            <span class="pdf-icon" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Add Sample PDF 1 to selection">+</span>
                         </div>
-                        <div class="pdf-item" data-pdf="pdfs/sample2.pdf">
-                            <span class="pdf-name">Sample PDF 2</span>
-                            <span class="pdf-icon">+</span>
+                        <div class="pdf-item" 
+                             data-pdf="pdfs/sample2.pdf" 
+                             role="listitem"
+                             tabindex="0"
+                             aria-label="Sample PDF 2, click to download or press + to add to selection">
+                            <span class="pdf-name" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Download Sample PDF 2">Sample PDF 2</span>
+                            <span class="pdf-icon" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Add Sample PDF 2 to selection">+</span>
                         </div>
-                        <div class="pdf-item" data-pdf="pdfs/sample3.pdf">
-                            <span class="pdf-name">Sample PDF 3</span>
-                            <span class="pdf-icon">+</span>
+                        <div class="pdf-item" 
+                             data-pdf="pdfs/sample3.pdf" 
+                             role="listitem"
+                             tabindex="0"
+                             aria-label="Sample PDF 3, click to download or press + to add to selection">
+                            <span class="pdf-name" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Download Sample PDF 3">Sample PDF 3</span>
+                            <span class="pdf-icon" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Add Sample PDF 3 to selection">+</span>
                         </div>
-                        <div class="pdf-item" data-pdf="pdfs/sample4.pdf">
-                            <span class="pdf-name">Sample PDF 4</span>
-                            <span class="pdf-icon">+</span>
+                        <div class="pdf-item" 
+                             data-pdf="pdfs/sample4.pdf" 
+                             role="listitem"
+                             tabindex="0"
+                             aria-label="Sample PDF 4, click to download or press + to add to selection">
+                            <span class="pdf-name" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Download Sample PDF 4">Sample PDF 4</span>
+                            <span class="pdf-icon" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Add Sample PDF 4 to selection">+</span>
                         </div>
-                        <div class="pdf-item" data-pdf="pdfs/sample5.pdf">
-                            <span class="pdf-name">Sample PDF 5</span>
-                            <span class="pdf-icon">+</span>
+                        <div class="pdf-item" 
+                             data-pdf="pdfs/sample5.pdf" 
+                             role="listitem"
+                             tabindex="0"
+                             aria-label="Sample PDF 5, click to download or press + to add to selection">
+                            <span class="pdf-name" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Download Sample PDF 5">Sample PDF 5</span>
+                            <span class="pdf-icon" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Add Sample PDF 5 to selection">+</span>
                         </div>
-                        <div class="pdf-item" data-pdf="pdfs/sample6.pdf">
-                            <span class="pdf-name">Sample PDF 6</span>
-                            <span class="pdf-icon">+</span>
+                        <div class="pdf-item" 
+                             data-pdf="pdfs/sample6.pdf" 
+                             role="listitem"
+                             tabindex="0"
+                             aria-label="Sample PDF 6, click to download or press + to add to selection">
+                            <span class="pdf-name" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Download Sample PDF 6">Sample PDF 6</span>
+                            <span class="pdf-icon" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Add Sample PDF 6 to selection">+</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="accordion-group">
-                    <div class="accordion-header" data-group="sample-two">
+                    <div class="accordion-header" 
+                         data-group="sample-two" 
+                         role="button" 
+                         tabindex="0" 
+                         aria-expanded="false" 
+                         aria-controls="sample-two"
+                         id="sample-two-header"
+                         aria-label="Toggle Sample PDFs Two section">
                         <span class="group-title">Sample PDFs Two</span>
-                        <span class="arrow-icon">→</span>
+                        <span class="arrow-icon" aria-hidden="true">→</span>
                     </div>
-                    <div class="accordion-content" id="sample-two">
-                        <div class="pdf-item" data-pdf="pdfs/sample7.pdf">
-                            <span class="pdf-name">Sample PDF 7</span>
-                            <span class="pdf-icon">+</span>
+                    <div class="accordion-content" 
+                         id="sample-two" 
+                         role="region" 
+                         aria-labelledby="sample-two-header"
+                         aria-hidden="true">
+                        <div class="pdf-item" 
+                             data-pdf="pdfs/sample7.pdf" 
+                             role="listitem"
+                             tabindex="0"
+                             aria-label="Sample PDF 7, click to download or press + to add to selection">
+                            <span class="pdf-name" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Download Sample PDF 7">Sample PDF 7</span>
+                            <span class="pdf-icon" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Add Sample PDF 7 to selection">+</span>
                         </div>
-                        <div class="pdf-item" data-pdf="pdfs/sample8.pdf">
-                            <span class="pdf-name">Sample PDF 8</span>
-                            <span class="pdf-icon">+</span>
+                        <div class="pdf-item" 
+                             data-pdf="pdfs/sample8.pdf" 
+                             role="listitem"
+                             tabindex="0"
+                             aria-label="Sample PDF 8, click to download or press + to add to selection">
+                            <span class="pdf-name" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Download Sample PDF 8">Sample PDF 8</span>
+                            <span class="pdf-icon" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Add Sample PDF 8 to selection">+</span>
                         </div>
-                        <div class="pdf-item" data-pdf="pdfs/sample9.pdf">
-                            <span class="pdf-name">Sample PDF 9</span>
-                            <span class="pdf-icon">+</span>
+                        <div class="pdf-item" 
+                             data-pdf="pdfs/sample9.pdf" 
+                             role="listitem"
+                             tabindex="0"
+                             aria-label="Sample PDF 9, click to download or press + to add to selection">
+                            <span class="pdf-name" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Download Sample PDF 9">Sample PDF 9</span>
+                            <span class="pdf-icon" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Add Sample PDF 9 to selection">+</span>
                         </div>
-                        <div class="pdf-item" data-pdf="pdfs/sample10.pdf">
-                            <span class="pdf-name">Sample PDF 10</span>
-                            <span class="pdf-icon">+</span>
+                        <div class="pdf-item" 
+                             data-pdf="pdfs/sample10.pdf" 
+                             role="listitem"
+                             tabindex="0"
+                             aria-label="Sample PDF 10, click to download or press + to add to selection">
+                            <span class="pdf-name" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Download Sample PDF 10">Sample PDF 10</span>
+                            <span class="pdf-icon" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Add Sample PDF 10 to selection">+</span>
                         </div>
-                        <div class="pdf-item" data-pdf="pdfs/sample11.pdf">
-                            <span class="pdf-name">Sample PDF 11</span>
-                            <span class="pdf-icon">+</span>
+                        <div class="pdf-item" 
+                             data-pdf="pdfs/sample11.pdf" 
+                             role="listitem"
+                             tabindex="0"
+                             aria-label="Sample PDF 11, click to download or press + to add to selection">
+                            <span class="pdf-name" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Download Sample PDF 11">Sample PDF 11</span>
+                            <span class="pdf-icon" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Add Sample PDF 11 to selection">+</span>
                         </div>
-                        <div class="pdf-item" data-pdf="pdfs/sample12.pdf">
-                            <span class="pdf-name">Sample PDF 12</span>
-                            <span class="pdf-icon">+</span>
+                        <div class="pdf-item" 
+                             data-pdf="pdfs/sample12.pdf" 
+                             role="listitem"
+                             tabindex="0"
+                             aria-label="Sample PDF 12, click to download or press + to add to selection">
+                            <span class="pdf-name" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Download Sample PDF 12">Sample PDF 12</span>
+                            <span class="pdf-icon" 
+                                  role="button" 
+                                  tabindex="-1"
+                                  aria-label="Add Sample PDF 12 to selection">+</span>
                         </div>
                     </div>
                 </div>
@@ -87,22 +229,44 @@
             <!-- Right Side - My PDF Book -->
             <div class="right-panel">
                 <!-- Panel Header - Desktop: Static, Mobile: Accordion Header -->
-                <div class="panel-header" data-group="mobile-selected">
-                    <h2>Selected PDFs (<span id="pdf-count">0</span>)</h2>
-                    <span class="arrow-icon mobile-only">→</span>
+                <div class="panel-header" 
+                     data-group="mobile-selected" 
+                     role="button" 
+                     tabindex="0" 
+                     aria-expanded="false" 
+                     aria-controls="selected-content"
+                     aria-label="Toggle selected PDFs panel">
+                    <h2 id="selected-pdfs-header">Selected PDFs (<span id="pdf-count" aria-live="polite">0</span>)</h2>
+                    <span class="arrow-icon mobile-only" aria-hidden="true">→</span>
                 </div>
                 
                 <!-- Common Content - Used for both Desktop and Mobile -->
-                <div class="selected-content">
-                    <div class="selected-pdfs" id="selected-pdfs">
-                        <div class="empty-state">No PDFs selected</div>
+                <div class="selected-content" 
+                     id="selected-content" 
+                     role="region" 
+                     aria-labelledby="selected-pdfs-header"
+                     aria-hidden="true">
+                    <div class="selected-pdfs" 
+                         id="selected-pdfs" 
+                         role="list" 
+                         aria-label="Selected PDF files">
+                        <div class="empty-state" role="status" aria-live="polite">No PDFs selected</div>
                     </div>
                     
-                    <div class="action-buttons">
-                        <button id="download-btn" class="download-btn" disabled>
+                    <div class="action-buttons" role="toolbar" aria-label="PDF actions">
+                        <button id="download-btn" 
+                                class="download-btn" 
+                                disabled 
+                                role="button"
+                                aria-label="Download merged PDF file">
                             Download Merged PDF
                         </button>
-                        <a href="#" id="clear-all" class="clear-link">Clear All</a>
+                        <button id="clear-all" 
+                                class="clear-link" 
+                                role="button"
+                                aria-label="Clear all selected PDFs">
+                            Clear All
+                        </button>
                     </div>
                 </div>
             </div>

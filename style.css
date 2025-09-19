@@ -31,15 +31,19 @@ h1 {
     display: flex;
     gap: 20px;
     height: 80vh;
+    flex-wrap: nowrap;
+    align-items: stretch;
 }
 
 /* Left Panel - Accordion Groups */
 .left-panel {
-    flex: 1;
+    flex: 1 1 60%;
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .accordion-group {
@@ -57,12 +61,19 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
     border-bottom: 1px solid #e9ecef;
+    outline: none;
+    border: 2px solid transparent;
 }
 
 .accordion-header:hover {
     background: #e9ecef;
+}
+
+.accordion-header:focus {
+    border-color: #004cab;
+    box-shadow: 0 0 0 3px rgba(0, 76, 171, 0.2);
 }
 
 .accordion-header.active {
@@ -102,10 +113,18 @@ h1 {
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
+    outline: none;
+    border: 2px solid transparent;
 }
 
 .pdf-item:hover {
+    background: #f8f9fa;
+}
+
+.pdf-item:focus {
+    border-color: #004cab;
+    box-shadow: 0 0 0 3px rgba(0, 76, 171, 0.2);
     background: #f8f9fa;
 }
 
@@ -153,13 +172,14 @@ h1 {
 
 /* Right Panel - My PDF Book */
 .right-panel {
-    flex: 1;
+    flex: 0 0 300px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     max-height: 80vh;
+    min-width: 280px;
 }
 
 /* Desktop: Show desktop content, hide mobile accordion */
@@ -182,11 +202,18 @@ h1 {
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
+    outline: none;
+    border: 2px solid transparent;
 }
 
 .panel-header:hover {
     background: #fcba2b;
+}
+
+.panel-header:focus {
+    border-color: #004cab;
+    box-shadow: 0 0 0 3px rgba(0, 76, 171, 0.2);
 }
 
 .panel-header h2 {
@@ -229,6 +256,14 @@ h1 {
     justify-content: space-between;
     align-items: center;
     border-left: 4px solid #00616a;
+    outline: none;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.selected-pdf-item:focus {
+    border-color: #004cab;
+    box-shadow: 0 0 0 3px rgba(0, 76, 171, 0.2);
 }
 
 .selected-pdf-name {
@@ -283,11 +318,18 @@ h1 {
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     min-height: 44px;
+    outline: none;
+    border: 2px solid transparent;
 }
 
 .download-btn:hover:not(:disabled) {
-    background: #0056b3;
+    background: #e6a825;
     transform: translateY(-1px);
+}
+
+.download-btn:focus:not(:disabled) {
+    border-color: #004cab;
+    box-shadow: 0 0 0 3px rgba(0, 76, 171, 0.2);
 }
 
 .download-btn:disabled {
@@ -305,11 +347,20 @@ h1 {
     padding: 8px;
     border-radius: 4px;
     transition: all 0.2s ease;
+    outline: none;
+    border: 2px solid transparent;
+    display: block;
 }
 
 .clear-link:hover {
     background: #f8d7da;
     color: #c82333;
+}
+
+.clear-link:focus {
+    border-color: #004cab;
+    box-shadow: 0 0 0 3px rgba(0, 76, 171, 0.2);
+    background: #f8d7da;
 }
 
 /* Scrollbar Styling */
@@ -356,11 +407,13 @@ h1 {
         flex-direction: column;
         height: auto;
         gap: 15px;
+        flex-wrap: wrap;
     }
     
     .left-panel {
-        flex: none;
+        flex: 1 1 100%;
         max-height: none;
+        order: 1;
     }
     
     .right-panel {
@@ -373,6 +426,8 @@ h1 {
         border-radius: 8px 8px 0 0;
         box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
         margin: 0;
+        flex: none;
+        order: 2;
     }
     
     /* Mobile/Tablet: Show selected content as accordion */
