@@ -32,23 +32,34 @@ $(document).ready(function () {
         // Update arrow icon
         if ($accordionGroup.hasClass('active')) {
             $arrowIcon.removeClass('fa-chevron-right').addClass('fa-chevron-down');
-            if (isRightPanel) {
+            if (isRightPanel && window.innerWidth <= 768) {
                 $('.panel-accordion-overlay').addClass('active');
             }
         } else {
             $arrowIcon.removeClass('fa-chevron-down').addClass('fa-chevron-right');
-            if (isRightPanel) {
+            if (isRightPanel && window.innerWidth <= 768) {
                 $('.panel-accordion-overlay').removeClass('active');
             }
         }
     }
 
     // Accordion toggle - click and keyboard
-    $('.accordion-header, .panel-header').on('click keydown', function (e) {
+    $('.accordion-header').on('click keydown', function (e) {
         // Handle both click and Enter/Space key
         if (e.type === 'click' || (e.type === 'keydown' && (e.key === 'Enter' || e.key === ' '))) {
             e.preventDefault();
             toggleAccordion($(this));
+        }
+    });
+
+    // Panel header accordion - only on mobile/tablet
+    $('.panel-header').on('click keydown', function (e) {
+        // Only handle on mobile/tablet screens
+        if (window.innerWidth <= 768) {
+            if (e.type === 'click' || (e.type === 'keydown' && (e.key === 'Enter' || e.key === ' '))) {
+                e.preventDefault();
+                toggleAccordion($(this));
+            }
         }
     });
 
@@ -166,6 +177,7 @@ $(document).ready(function () {
         // Remove overlay
         $('.panel-accordion-overlay').removeClass('active');
     });
+
 
     // Download merged PDF
     $('#download-btn').click(function () {
