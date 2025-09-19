@@ -1,37 +1,37 @@
 $(document).ready(function () {
     let selectedPDFs = [];
-
+    
     // Accordion toggle function
     function toggleAccordion($this) {
         const $accordionGroup = $this.closest('.accordion-group, .right-panel');
         const $accordionContent = $accordionGroup.find('.accordion-content, .selected-content');
         const $arrowIcon = $this.find('.arrow-icon');
-
+        
         // Only close other accordions if it's not the right panel
         if (!$accordionGroup.hasClass('right-panel')) {
-            $('.accordion-group').not($accordionGroup).removeClass('active');
-            $('.accordion-content').not($accordionContent).removeClass('active');
-            $('.arrow-icon').not($arrowIcon).text('→');
+        $('.accordion-group').not($accordionGroup).removeClass('active');
+        $('.accordion-content').not($accordionContent).removeClass('active');
+            $('.arrow-icon').not($arrowIcon).removeClass('fa-chevron-down').addClass('fa-chevron-right');
         }
-
+        
         // Toggle this accordion/panel
         const isActive = $accordionGroup.hasClass('active');
         $accordionGroup.toggleClass('active');
         $accordionContent.toggleClass('active');
-
+        
         // Update ARIA attributes
         $this.attr('aria-expanded', !isActive);
         $accordionContent.attr('aria-hidden', isActive);
 
         if ($accordionGroup.hasClass('active')) {
-            $arrowIcon.text('↓');
+            $arrowIcon.removeClass('fa-chevron-right').addClass('fa-chevron-down');
 
             // If it's the right panel, add overlay active class
             if ($accordionGroup.hasClass('right-panel')) {
                 $('.panel-accordion-overlay').addClass('active');
             }
         } else {
-            $arrowIcon.text('→');
+            $arrowIcon.removeClass('fa-chevron-down').addClass('fa-chevron-right');
 
             // If it's the right panel, remove overlay active class
             if ($accordionGroup.hasClass('right-panel')) {
@@ -80,36 +80,36 @@ $(document).ready(function () {
         }
     });
 
-
+    
     // PDF name click - download single PDF
     $('.pdf-name').click(function (e) {
         e.stopPropagation();
         const pdfName = $(this).closest('.pdf-item').data('pdf');
         downloadSinglePDF(pdfName);
     });
-
+    
     // PDF selection
     $('.pdf-icon').click(function (e) {
         e.stopPropagation();
         const $pdfItem = $(this).closest('.pdf-item');
         const pdfName = $pdfItem.data('pdf');
         const $icon = $(this);
-
+        
         if ($icon.hasClass('selected')) {
             removePDFFromSelection(pdfName, $icon);
         } else {
             addPDFToSelection(pdfName, $icon);
         }
     });
-
+    
     // Remove PDF from selection - click and keyboard
     $(document).on('click keydown', '.remove-icon', function (e) {
         if (e.type === 'click' || (e.type === 'keydown' && (e.key === 'Enter' || e.key === ' '))) {
-            e.stopPropagation();
+        e.stopPropagation();
             e.preventDefault();
-            const pdfName = $(this).closest('.selected-pdf-item').data('pdf');
-            const $leftIcon = $(`.pdf-item[data-pdf="${pdfName}"] .pdf-icon`);
-            removePDFFromSelection(pdfName, $leftIcon);
+        const pdfName = $(this).closest('.selected-pdf-item').data('pdf');
+        const $leftIcon = $(`.pdf-item[data-pdf="${pdfName}"] .pdf-icon`);
+        removePDFFromSelection(pdfName, $leftIcon);
         }
     });
 
@@ -145,7 +145,7 @@ $(document).ready(function () {
         e.preventDefault();
         clearAllPDFs();
     });
-
+    
     // Download merged PDF
     $('#download-btn').click(function () {
         if (selectedPDFs.length === 0) {
@@ -154,15 +154,15 @@ $(document).ready(function () {
         }
         downloadMergedPDF();
     });
-
+    
     // add pdf to selection
     function addPDFToSelection(pdfName, $icon) {
         if (selectedPDFs.includes(pdfName)) return;
-
+        
         selectedPDFs.push(pdfName);
-        $icon.addClass('selected').text('×');
+        $icon.removeClass('fa-plus').addClass('fa-times selected');
         $icon.attr('aria-label', $icon.attr('aria-label').replace('Add', 'Remove'));
-
+        
         const pdfDisplayName = $icon.siblings('.pdf-name').text();
         const selectedItem = $(`
             <div class="selected-pdf-item" 
@@ -171,46 +171,46 @@ $(document).ready(function () {
                  tabindex="0"
                  aria-label="${pdfDisplayName}, press Enter or Space to remove from selection">
                 <span class="selected-pdf-name">${pdfDisplayName}</span>
-                <span class="remove-icon" 
-                      role="button" 
-                      tabindex="-1"
-                      aria-label="Remove ${pdfDisplayName} from selection">×</span>
+                <i class="fas fa-times remove-icon" 
+                   role="button" 
+                   tabindex="-1"
+                   aria-label="Remove ${pdfDisplayName} from selection"></i>
             </div>
         `);
-
+        
         // Update selected list
         $('.empty-state').remove();
         $('#selected-pdfs').append(selectedItem);
         updateDownloadButton();
     }
-
+    
     // remove pdf from selection
     function removePDFFromSelection(pdfName, $icon) {
         selectedPDFs = selectedPDFs.filter(pdf => pdf !== pdfName);
-        $icon.removeClass('selected').text('+');
+        $icon.removeClass('fa-times selected').addClass('fa-plus');
         $icon.attr('aria-label', $icon.attr('aria-label').replace('Remove', 'Add'));
-
+        
         // Remove from selected list
         $(`.selected-pdf-item[data-pdf="${pdfName}"]`).remove();
-
+        
         if (selectedPDFs.length === 0) {
             $('#selected-pdfs').html('<div class="empty-state" role="status" aria-live="polite">No PDFs selected</div>');
         }
-
+        
         updateDownloadButton();
     }
-
+    
     // clear all pdfs
     function clearAllPDFs() {
         selectedPDFs = [];
-        $('.pdf-icon').removeClass('selected').text('+');
+        $('.pdf-icon').removeClass('fa-times selected').addClass('fa-plus');
         $('.pdf-icon').attr('aria-label', function(i, label) {
             return label.replace('Remove', 'Add');
         });
         $('#selected-pdfs').html('<div class="empty-state" role="status" aria-live="polite">No PDFs selected</div>');
         updateDownloadButton();
     }
-
+    
     // update download button and PDF count
     function updateDownloadButton() {
         const $downloadBtn = $('#download-btn');
@@ -231,19 +231,19 @@ $(document).ready(function () {
         link.click();
         document.body.removeChild(link);
     }
-
+    
     // download merged pdf
     async function downloadMergedPDF() {
         const $downloadBtn = $('#download-btn');
         const originalText = $downloadBtn.text();
-
+        
         if (typeof PDFLib === 'undefined') {
             alert('PDF Lib library is not loaded. Please refresh the page and try again.');
             return;
         }
 
         $downloadBtn.prop('disabled', true).text('Merging PDFs...');
-
+        
         try {
             const mergedPdf = await PDFLib.PDFDocument.create();
 
@@ -262,27 +262,27 @@ $(document).ready(function () {
             const pdfBytes = await mergedPdf.save();
             const blob = new Blob([pdfBytes], { type: 'application/pdf' });
 
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'my-pdf-book.pdf';
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            URL.revokeObjectURL(url);
-
-            $downloadBtn.text('Download Complete!');
-            setTimeout(() => {
-                $downloadBtn.text(originalText).prop('disabled', false);
-            }, 2000);
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'my-pdf-book.pdf';
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                    URL.revokeObjectURL(url);
+                
+                $downloadBtn.text('Download Complete!');
+                setTimeout(() => {
+                    $downloadBtn.text(originalText).prop('disabled', false);
+                }, 2000);
 
         } catch (error) {
             alert('Error merging PDFs: ' + error.message);
-            $downloadBtn.text(originalText).prop('disabled', false);
+                $downloadBtn.text(originalText).prop('disabled', false);
         }
     }
-
+    
     updateDownloadButton();
 });

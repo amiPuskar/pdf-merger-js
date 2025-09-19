@@ -89,6 +89,11 @@ h1 {
 .arrow-icon {
     font-size: 1.2rem;
     transition: transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
 }
 
 .accordion-header.active .arrow-icon {
@@ -107,7 +112,7 @@ h1 {
 
 /* PDF Items */
 .pdf-item {
-    padding: 15px 20px;
+    padding: 16px 20px;
     border-bottom: 1px solid #f1f3f4;
     display: flex;
     justify-content: space-between;
@@ -116,6 +121,7 @@ h1 {
     transition: all 0.2s ease;
     outline: none;
     border: 2px solid transparent;
+    gap: 12px;
 }
 
 .pdf-item:hover {
@@ -137,6 +143,8 @@ h1 {
     color: #004cab;
     cursor: pointer;
     font-weight: 500;
+    flex: 1;
+    padding-right: 8px;
 }
 
 .pdf-name:hover {
@@ -144,20 +152,20 @@ h1 {
 }
 
 .pdf-icon {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 14px;
     cursor: pointer;
     transition: all 0.2s ease;
     background: #004cab;
     color: #FFFFFF;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+    flex-shrink: 0;
 }
 
 .pdf-icon:hover {
@@ -168,6 +176,43 @@ h1 {
     background: #dc3545;
     color: white;
     border-color: #dc3545;
+}
+
+.pdf-icon.fa-times {
+    background: #dc3545;
+    color: white;
+}
+
+/* Ensure Font Awesome icons are perfectly centered */
+.fa-plus, .fa-times, .fa-chevron-right, .fa-chevron-down {
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    vertical-align: middle;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+
+/* Font Awesome icon centering */
+.pdf-icon i, .remove-icon i {
+    line-height: 1;
+    display: block;
+}
+
+/* Ensure consistent icon sizing across all breakpoints */
+@media (max-width: 768px) {
+    .pdf-item {
+        padding: 14px 16px;
+        gap: 10px;
+    }
+    
+    .selected-pdf-item {
+        padding: 12px 14px;
+        gap: 10px;
+    }
 }
 
 /* Right Panel - My PDF Book */
@@ -248,7 +293,7 @@ h1 {
 }
 
 .selected-pdf-item {
-    padding: 12px 16px;
+    padding: 14px 16px;
     margin-bottom: 8px;
     background: #f8f9fa;
     border-radius: 6px;
@@ -259,6 +304,7 @@ h1 {
     outline: none;
     border: 2px solid transparent;
     transition: all 0.2s ease;
+    gap: 12px;
 }
 
 .selected-pdf-item:focus {
@@ -269,11 +315,13 @@ h1 {
 .selected-pdf-name {
     font-size: 0.95rem;
     color: #495057;
+    flex: 1;
+    padding-right: 8px;
 }
 
 .remove-icon {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     background: #dc3545;
     color: white;
@@ -281,9 +329,10 @@ h1 {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 12px;
     transition: all 0.2s ease;
+    flex-shrink: 0;
+    display: flex !important;
 }
 
 .remove-icon:hover {
@@ -448,7 +497,9 @@ h1 {
     
     /* Show arrow icon on mobile */
     .arrow-icon.mobile-only {
-        display: block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
     
     /* Make panel header clickable on mobile */
@@ -485,9 +536,10 @@ h1 {
     }
     
     .pdf-icon {
-        width: 28px;
-        height: 28px;
-        font-size: 14px;
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+        flex-shrink: 0;
     }
     
     .action-buttons {
@@ -536,9 +588,10 @@ h1 {
     }
     
     .pdf-icon {
-        width: 26px;
-        height: 26px;
-        font-size: 12px;
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+        flex-shrink: 0;
     }
     
     .selected-pdf-item {
@@ -551,9 +604,10 @@ h1 {
     }
     
     .remove-icon {
-        width: 22px;
-        height: 22px;
-        font-size: 12px;
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+        flex-shrink: 0;
     }
     
     .action-buttons {
