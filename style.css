@@ -507,20 +507,23 @@ h1 {
     }
 }
 
-/* Hidden Footer for Accessibility */
-footer[role="contentinfo"] {
-    position: absolute;
-    left: -10000px;
-    top: auto;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-    border: none;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
+/* Completely Hidden Footer - Only for Screen Readers */
+footer {
+    position: absolute !important;
+    left: -10000px !important;
+    top: auto !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    color: #333 !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
 
 /* Hide arrow icon on desktop, show on mobile/tablet */

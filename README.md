@@ -19,10 +19,11 @@ A modern, responsive, and fully accessible web application for merging multiple 
 - **One-click Clear**: Remove all selections instantly
 
 ### 📱 Responsive Design
-- **Desktop**: Traditional sidebar layout with always-visible selected PDFs
-- **Mobile/Tablet**: Fixed bottom panel with accordion functionality
+- **Desktop**: Clean sidebar layout with always-visible selected PDFs (no accordion)
+- **Tablet**: Balanced layout with optimized proportions
+- **Mobile**: Fixed bottom panel with accordion functionality
 - **Touch Optimized**: Perfect for mobile devices with touch-friendly controls
-- **Adaptive UI**: Automatically adjusts to different screen sizes
+- **Single Screen**: Full viewport utilization without fullscreen complexity
 
 ### 🎨 Modern UI/UX
 - **Clean Design**: Professional yellow and blue color scheme
@@ -34,9 +35,11 @@ A modern, responsive, and fully accessible web application for merging multiple 
 ### ♿ Accessibility Features
 - **WCAG 2.1 AA Compliant**: Meets accessibility standards
 - **Keyboard Navigation**: Full keyboard support with arrow keys
-- **Screen Reader Support**: Comprehensive ARIA attributes
+- **Screen Reader Support**: Comprehensive ARIA attributes and landmarks
 - **Focus Management**: Clear visual focus indicators
 - **Touch Optimized**: Large touch targets for mobile devices
+- **Semantic HTML5**: Proper use of main, header, section, aside, footer elements
+- **Hidden Footer**: Completely invisible footer that remains accessible to screen readers
 
 ## 🚀 Quick Start
 
@@ -148,11 +151,20 @@ pdf-merger-js/
 
 #### Desktop Experience
 1. **Select PDFs**: Click the ➕ icon next to PDF names
-2. **View Selection**: See selected PDFs in the right panel
+2. **View Selection**: See selected PDFs in the right panel (always visible)
 3. **Download**: Click "Download Books PDF" to get the combined file
 4. **Individual Downloads**: Click on PDF names to download single files
 5. **Clear**: Use "Clear All" to remove all selections
 6. **Keyboard**: Use Tab, Arrow keys, Enter, and Space for navigation
+7. **Clean Interface**: No accordion arrows or clickable elements on desktop
+
+#### Tablet Experience
+1. **Select PDFs**: Tap the ➕ icon to add PDFs
+2. **View Selection**: See selected PDFs in the right panel (always visible)
+3. **Download**: Tap "Download Books PDF" when ready
+4. **Individual Downloads**: Tap on PDF names to download single files
+5. **Clear**: Use "Clear All" to remove selections
+6. **Balanced Layout**: Optimized proportions for tablet screens
 
 #### Mobile Experience
 1. **Select PDFs**: Tap the ➕ icon to add PDFs
@@ -162,6 +174,7 @@ pdf-merger-js/
 5. **Clear**: Use "Clear All" to remove selections
 6. **Touch Optimized**: Large touch targets and smooth interactions
 7. **Overlay**: Dark overlay appears when panel is expanded, tap to close
+8. **Accordion**: Arrow icon shows and rotates on mobile only
 
 ### Customization
 
@@ -209,7 +222,16 @@ data-pdf="pdfs/your-file.pdf"
 
 ### Responsive Breakpoints
 ```css
-/* Mobile and tablet */
+/* Desktop */
+@media (min-width: 1201px) { ... }
+
+/* Large tablet */
+@media (max-width: 1200px) { ... }
+
+/* Tablet */
+@media (max-width: 992px) { ... }
+
+/* Mobile */
 @media (max-width: 768px) { ... }
 
 /* Small mobile */
@@ -284,11 +306,14 @@ data-pdf="pdfs/your-file.pdf"
 - **Arrow Keys**: Navigate through PDF items and selected items
 - **Enter/Space**: Activate buttons and toggle accordions
 - **Escape**: Close modals and overlays
+- **Mobile Detection**: Accordion only works on mobile/tablet screens
 
 ### Screen Reader Support
 - **ARIA Labels**: Descriptive labels for all interactive elements
 - **Live Regions**: Dynamic content updates announced to screen readers
-- **Semantic HTML**: Proper heading structure and landmarks
+- **Semantic HTML5**: Proper use of main, header, section, aside, footer elements
+- **Landmarks**: Clear page structure with proper roles
+- **Hidden Footer**: Completely invisible footer that remains accessible to screen readers
 - **Focus Management**: Clear focus indicators and logical tab order
 
 ### Visual Accessibility
@@ -296,6 +321,7 @@ data-pdf="pdfs/your-file.pdf"
 - **Focus Indicators**: Clear visual focus rings
 - **Touch Targets**: Minimum 44px touch targets for mobile
 - **Icon Alignment**: Perfectly centered icons for visual clarity
+- **Responsive Text**: Readable font sizes across all devices
 
 ## 🤝 Contributing
 
@@ -311,6 +337,18 @@ data-pdf="pdfs/your-file.pdf"
 - Verify screen reader compatibility
 - Ensure responsive design works on all devices
 
+## 🚀 Recent Updates
+
+### Version 2.0 Features
+- ✅ **Single Screen Design**: Clean, responsive layout without fullscreen complexity
+- ✅ **Mobile-First Accordion**: Right panel accordion only works on mobile/tablet
+- ✅ **Desktop Optimization**: Clean interface with always-visible selected PDFs
+- ✅ **Enhanced Accessibility**: WCAG 2.1 AA compliant with proper landmarks
+- ✅ **Font Awesome Integration**: Professional icons with perfect alignment
+- ✅ **Responsive Breakpoints**: Optimized for all screen sizes
+- ✅ **Hidden Footer**: Completely invisible footer that remains accessible to screen readers
+- ✅ **Clean HTML5**: Proper semantic elements without redundant ARIA roles
+
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
@@ -321,6 +359,7 @@ This project is open source and available under the [MIT License](LICENSE).
 - **jQuery**: For simplified DOM manipulation
 - **Font Awesome**: For professional icons and visual elements
 - **Modern CSS**: For responsive design and accessibility features
+- **WCAG Guidelines**: For accessibility best practices
 
 ## 📞 Support
 
@@ -330,10 +369,11 @@ If you encounter any issues or have questions:
 2. Review browser console for errors
 3. Test with sample PDFs first
 4. Verify accessibility with screen readers
-5. Create an issue with detailed information
+5. Test responsive design on different devices
+6. Create an issue with detailed information
 
 ---
 
 **Happy PDF Merging! 🎉**
 
-*Built with ❤️ and accessibility in mind*
+*Built with ❤️, accessibility, and responsive design in mind*
