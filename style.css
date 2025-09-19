@@ -1,5 +1,7 @@
 /* Reset and Base Styles */
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -183,23 +185,31 @@ h1 {
     color: white;
 }
 
-/* Ensure Font Awesome icons are perfectly centered */
-.fa-plus, .fa-times, .fa-chevron-right, .fa-chevron-down {
+/* Font Awesome base styles */
+.fa-plus, 
+.fa-times, 
+.fa-chevron-right, 
+.fa-chevron-down {
     display: inline-block;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     vertical-align: middle;
     font-style: normal;
     font-variant: normal;
     text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     line-height: 1;
 }
 
-/* Font Awesome icon centering */
-.pdf-icon i, .remove-icon i {
+/* Font Awesome icon optimization */
+.pdf-icon i, 
+.remove-icon i {
     line-height: 1;
     display: block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Ensure consistent icon sizing across all breakpoints */
