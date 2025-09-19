@@ -39,7 +39,7 @@ A modern, responsive, and fully accessible web application for merging multiple 
 - **Focus Management**: Clear visual focus indicators
 - **Touch Optimized**: Large touch targets for mobile devices
 - **Semantic HTML5**: Proper use of main, header, section, aside, footer elements
-- **Hidden Footer**: Accessible but visually hidden footer for screen readers
+- **Hidden Footer**: Completely invisible footer that remains accessible to screen readers
 
 ## 🚀 Quick Start
 
@@ -313,7 +313,7 @@ data-pdf="pdfs/your-file.pdf"
 - **Live Regions**: Dynamic content updates announced to screen readers
 - **Semantic HTML5**: Proper use of main, header, section, aside, footer elements
 - **Landmarks**: Clear page structure with proper roles
-- **Hidden Footer**: Accessible but visually hidden footer for screen readers
+- **Hidden Footer**: Completely invisible footer that remains accessible to screen readers
 - **Focus Management**: Clear focus indicators and logical tab order
 
 ### Visual Accessibility
@@ -346,7 +346,8 @@ data-pdf="pdfs/your-file.pdf"
 - ✅ **Enhanced Accessibility**: WCAG 2.1 AA compliant with proper landmarks
 - ✅ **Font Awesome Integration**: Professional icons with perfect alignment
 - ✅ **Responsive Breakpoints**: Optimized for all screen sizes
-- ✅ **Hidden Footer**: Accessible but visually hidden for clean UI
+- ✅ **Hidden Footer**: Completely invisible footer that remains accessible to screen readers
+- ✅ **Clean HTML5**: Proper semantic elements without redundant ARIA roles
 
 ## 📄 License
 
