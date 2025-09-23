@@ -126,7 +126,8 @@ h1 {
     gap: 12px;
 }
 
-.pdf-item:hover {
+.pdf-item:hover,
+.pdf-item.selected {
     background: #f8f9fa;
 }
 
@@ -450,6 +451,12 @@ h1 {
     background: rgba(0, 0, 0, 0.8);
 }
 
+.pdf-item-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
@@ -504,6 +511,12 @@ h1 {
     .selected-pdfs {
         max-height: 30vh;
         overflow-y: auto;
+    }
+
+    .pdf-item-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
     }
 }
 

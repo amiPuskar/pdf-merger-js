@@ -195,7 +195,10 @@ $(document).ready(function () {
         selectedPDFs.push(pdfName);
         updateIconState($icon, 'selected');
 
-        const pdfDisplayName = $icon.siblings('.pdf-name').text();
+        $icon.closest('.pdf-item').addClass('selected');
+
+        // ✅ Correctly get PDF display name
+        const pdfDisplayName = $icon.closest('.pdf-item').find('.pdf-name').text();
         const selectedItem = createSelectedItem(pdfName, pdfDisplayName);
 
         $('.empty-state').remove();
@@ -207,6 +210,10 @@ $(document).ready(function () {
     function removePDFFromSelection(pdfName, $icon) {
         selectedPDFs = selectedPDFs.filter(pdf => pdf !== pdfName);
         updateIconState($icon, 'unselected');
+
+        // ✅ Remove class from the parent .pdf-item
+        $icon.closest('.pdf-item').removeClass('selected');
+
         $(`.selected-pdf-item[data-pdf="${pdfName}"]`).remove();
 
         if (selectedPDFs.length === 0) {
