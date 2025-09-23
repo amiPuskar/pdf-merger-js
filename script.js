@@ -103,11 +103,13 @@ $(document).ready(function () {
     });
 
     // PDF selection
-    $('.pdf-icon').click(function (e) {
-        e.stopPropagation();
-        const $pdfItem = $(this).closest('.pdf-item');
-        const pdfName = $pdfItem.data('pdf');
-        const $icon = $(this);
+    $('.pdf-item').click(function (e) {
+        // Prevent nested clicks like on PDF name from triggering download
+        if ($(e.target).hasClass('pdf-name')) return;
+
+        const $item = $(this);
+        const pdfName = $item.data('pdf');
+        const $icon = $item.find('.pdf-icon');
 
         if ($icon.hasClass('selected')) {
             removePDFFromSelection(pdfName, $icon);

@@ -128,13 +128,12 @@ h1 {
 
 .pdf-item:hover,
 .pdf-item.selected {
-    background: #f8f9fa;
+    background: #eff7ff;
 }
 
 .pdf-item:focus {
     border-color: #004cab;
-    box-shadow: 0 0 0 3px rgba(0, 76, 171, 0.2);
-    background: #f8f9fa;
+    background: #eff7ff;
 }
 
 .pdf-item:last-child {
@@ -306,7 +305,7 @@ h1 {
 .selected-pdf-item {
     padding: 14px 16px;
     margin-bottom: 8px;
-    background: #f8f9fa;
+    background: #eff7ff;
     border-radius: 6px;
     display: flex;
     justify-content: space-between;
@@ -354,7 +353,7 @@ h1 {
 /* Action Buttons - Sticky Footer */
 .action-buttons {
     padding: 20px;
-    background: #f8f9fa;
+    background: #eff7ff;
     border-top: 1px solid #e9ecef;
     display: flex;
     flex-direction: column;
