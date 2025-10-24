@@ -6,7 +6,10 @@
 $(document).ready(function () {
     let selectedPDFs = [];
 
-    // Accordion toggle function
+    // ============================================================================
+    // ACCORDION FUNCTIONALITY
+    // ============================================================================
+    
     function toggleAccordion($this) {
         const $accordionGroup = $this.closest('.accordion-group, .right-panel');
         const $accordionContent = $accordionGroup.find('.accordion-content, .selected-content');
@@ -43,9 +46,12 @@ $(document).ready(function () {
         }
     }
 
+    // ============================================================================
+    // EVENT HANDLERS
+    // ============================================================================
+    
     // Accordion toggle - click and keyboard
     $('.accordion-header').on('click keydown', function (e) {
-        // Handle both click and Enter/Space key
         if (e.type === 'click' || (e.type === 'keydown' && (e.key === 'Enter' || e.key === ' '))) {
             e.preventDefault();
             toggleAccordion($(this));
@@ -54,15 +60,79 @@ $(document).ready(function () {
 
     // Panel header accordion - only on mobile/tablet
     $('.panel-header').on('click keydown', function (e) {
-        // Only handle on mobile/tablet screens
-        if (window.innerWidth <= 768) {
-            if (e.type === 'click' || (e.type === 'keydown' && (e.key === 'Enter' || e.key === ' '))) {
-                e.preventDefault();
-                toggleAccordion($(this));
-            }
+        if (window.innerWidth <= 768 && (e.type === 'click' || (e.type === 'keydown' && (e.key === 'Enter' || e.key === ' ')))) {
+            e.preventDefault();
+            toggleAccordion($(this));
         }
     });
 
+    // PDF name click - download single PDF
+    $('.pdf-name').click(function (e) {
+        e.stopPropagation();
+        const pdfName = $(this).closest('.pdf-item').data('pdf');
+        downloadSinglePDF(pdfName);
+    });
+
+    // PDF selection
+    $('.pdf-item').click(function (e) {
+        if ($(e.target).hasClass('pdf-name')) return;
+
+        const $item = $(this);
+        const pdfName = $item.data('pdf');
+        const $icon = $item.find('.pdf-icon');
+
+        if ($icon.hasClass('selected')) {
+            removePDFFromSelection(pdfName, $icon);
+        } else {
+            addPDFToSelection(pdfName, $icon);
+        }
+    });
+
+    // Remove PDF from selection
+    $(document).on('click keydown', '.remove-icon', function (e) {
+        if (e.type === 'click' || (e.type === 'keydown' && (e.key === 'Enter' || e.key === ' '))) {
+            e.stopPropagation();
+            e.preventDefault();
+            const pdfName = $(this).closest('.selected-pdf-item').data('pdf');
+            const $leftIcon = $(`.pdf-item[data-pdf="${pdfName}"] .pdf-icon`);
+            removePDFFromSelection(pdfName, $leftIcon);
+        }
+    });
+
+    // Clear all
+    $('#clear-all').click(function (e) {
+        e.preventDefault();
+        clearAllPDFs();
+    });
+
+    // Download merged PDF
+    $('#download-btn').click(function () {
+        if (selectedPDFs.length === 0) {
+            alert('Please select at least one PDF to merge.');
+            return;
+        }
+        downloadMergedPDF();
+    });
+
+    // Close accordion when clicking on overlay
+    $('.panel-accordion-overlay').click(function () {
+        const $rightPanel = $('.right-panel');
+        const $panelHeader = $rightPanel.find('.panel-header');
+        const $selectedContent = $rightPanel.find('.selected-content');
+        const $arrowIcon = $panelHeader.find('.arrow-icon');
+
+        $rightPanel.removeClass('active');
+        $selectedContent.removeClass('active');
+        $arrowIcon.removeClass('fa-chevron-down').addClass('fa-chevron-right');
+        $panelHeader.attr('aria-expanded', 'false');
+        $selectedContent.attr('aria-hidden', 'true');
+        $('.panel-accordion-overlay').removeClass('active');
+    });
+
+    // ============================================================================
+    // KEYBOARD NAVIGATION
+    // ============================================================================
+    
     // Keyboard navigation for PDF items
     $('.pdf-item').on('keydown', function (e) {
         const $this = $(this);
@@ -94,41 +164,6 @@ $(document).ready(function () {
         }
     });
 
-
-    // PDF name click - download single PDF
-    $('.pdf-name').click(function (e) {
-        e.stopPropagation();
-        const pdfName = $(this).closest('.pdf-item').data('pdf');
-        downloadSinglePDF(pdfName);
-    });
-
-    // PDF selection
-    $('.pdf-item').click(function (e) {
-        // Prevent nested clicks like on PDF name from triggering download
-        if ($(e.target).hasClass('pdf-name')) return;
-
-        const $item = $(this);
-        const pdfName = $item.data('pdf');
-        const $icon = $item.find('.pdf-icon');
-
-        if ($icon.hasClass('selected')) {
-            removePDFFromSelection(pdfName, $icon);
-        } else {
-            addPDFToSelection(pdfName, $icon);
-        }
-    });
-
-    // Remove PDF from selection - click and keyboard
-    $(document).on('click keydown', '.remove-icon', function (e) {
-        if (e.type === 'click' || (e.type === 'keydown' && (e.key === 'Enter' || e.key === ' '))) {
-            e.stopPropagation();
-            e.preventDefault();
-            const pdfName = $(this).closest('.selected-pdf-item').data('pdf');
-            const $leftIcon = $(`.pdf-item[data-pdf="${pdfName}"] .pdf-icon`);
-            removePDFFromSelection(pdfName, $leftIcon);
-        }
-    });
-
     // Keyboard navigation for selected PDF items
     $(document).on('keydown', '.selected-pdf-item', function (e) {
         const $this = $(this);
@@ -156,50 +191,17 @@ $(document).ready(function () {
         }
     });
 
-    // Clear all
-    $('#clear-all').click(function (e) {
-        e.preventDefault();
-        clearAllPDFs();
-    });
-
-    // Close accordion when clicking on overlay
-    $('.panel-accordion-overlay').click(function () {
-        const $rightPanel = $('.right-panel');
-        const $panelHeader = $rightPanel.find('.panel-header');
-        const $selectedContent = $rightPanel.find('.selected-content');
-        const $arrowIcon = $panelHeader.find('.arrow-icon');
-
-        // Close the accordion with proper mobile handling
-        $rightPanel.removeClass('active');
-        $selectedContent.removeClass('active');
-        $arrowIcon.removeClass('fa-chevron-down').addClass('fa-chevron-right');
-        $panelHeader.attr('aria-expanded', 'false');
-        $selectedContent.attr('aria-hidden', 'true');
-
-        // Remove overlay
-        $('.panel-accordion-overlay').removeClass('active');
-    });
-
-
-    // Download merged PDF
-    $('#download-btn').click(function () {
-        if (selectedPDFs.length === 0) {
-            alert('Please select at least one PDF to merge.');
-            return;
-        }
-        downloadMergedPDF();
-    });
-
-    // Add PDF to selection
+    // ============================================================================
+    // PDF MANAGEMENT FUNCTIONS
+    // ============================================================================
+    
     function addPDFToSelection(pdfName, $icon) {
         if (selectedPDFs.includes(pdfName)) return;
 
         selectedPDFs.push(pdfName);
         updateIconState($icon, 'selected');
-
         $icon.closest('.pdf-item').addClass('selected');
 
-        // ✅ Correctly get PDF display name
         const pdfDisplayName = $icon.closest('.pdf-item').find('.pdf-name').text();
         const selectedItem = createSelectedItem(pdfName, pdfDisplayName);
 
@@ -208,12 +210,9 @@ $(document).ready(function () {
         updateDownloadButton();
     }
 
-    // Remove PDF from selection
     function removePDFFromSelection(pdfName, $icon) {
         selectedPDFs = selectedPDFs.filter(pdf => pdf !== pdfName);
         updateIconState($icon, 'unselected');
-
-        // ✅ Remove class from the parent .pdf-item
         $icon.closest('.pdf-item').removeClass('selected');
 
         $(`.selected-pdf-item[data-pdf="${pdfName}"]`).remove();
@@ -225,7 +224,6 @@ $(document).ready(function () {
         updateDownloadButton();
     }
 
-    // Helper function to update icon state
     function updateIconState($icon, state) {
         if (state === 'selected') {
             $icon.removeClass('fa-plus').addClass('fa-times selected');
@@ -236,7 +234,6 @@ $(document).ready(function () {
         }
     }
 
-    // Helper function to create selected item HTML
     function createSelectedItem(pdfName, pdfDisplayName) {
         return $(`
             <div class="selected-pdf-item" 
@@ -253,7 +250,6 @@ $(document).ready(function () {
         `);
     }
 
-    // Clear all PDFs
     function clearAllPDFs() {
         selectedPDFs = [];
         $('.pdf-icon').each(function () {
@@ -263,17 +259,12 @@ $(document).ready(function () {
         updateDownloadButton();
     }
 
-    // update download button and PDF count
     function updateDownloadButton() {
         const $downloadBtn = $('#download-btn');
-
         $downloadBtn.prop('disabled', selectedPDFs.length === 0);
-
-        // Update PDF count
         $('#pdf-count').text(selectedPDFs.length);
     }
 
-    // download single pdf
     function downloadSinglePDF(pdfName) {
         const link = document.createElement('a');
         link.href = pdfName;
@@ -284,7 +275,104 @@ $(document).ready(function () {
         document.body.removeChild(link);
     }
 
-    // download merged pdf
+    // ============================================================================
+    // COVER PAGE FUNCTIONS
+    // ============================================================================
+    
+    function truncateText(text, maxWidth, fontSize) {
+        const avgCharWidth = fontSize * 0.6;
+        const maxChars = Math.floor(maxWidth / avgCharWidth);
+        
+        if (text.length <= maxChars) {
+            return text;
+        }
+        
+        return text.substring(0, maxChars - 3) + '...';
+    }
+
+    function calculateTextWidth(text, fontSize) {
+        const avgCharWidth = fontSize * 0.6;
+        return text.length * avgCharWidth;
+    }
+
+    async function createCoverPage(mergedPdf) {
+        try {
+            const coverUrl = 'pdfs/pdf-cover.pdf';
+            const headerText = 'Selected PDFs:';
+            const headingSize = 14;
+            const bodyTextSize = 12;
+            const bodyTextLineHeight = 18;
+            const headerTextColor = PDFLib.rgb(0, 0, 0);
+            const bodyTextColor = PDFLib.rgb(0, 0, 0.8);
+
+            // Layout constants
+            const startY = 280;
+            const leftMargin = 45;
+            const listIndent = 55;
+            const rightMargin = 100;
+            const bottomMargin = 50;
+            const headerSpacing = 30;
+
+            // Load the cover PDF
+            const coverResponse = await fetch(coverUrl);
+            if (!coverResponse.ok) {
+                throw new Error(`Cover fetch failed: ${coverResponse.status}`);
+            }
+            
+            const coverBytes = await coverResponse.arrayBuffer();
+            const coverDoc = await PDFLib.PDFDocument.load(coverBytes, { ignoreEncryption: true });
+
+            // Copy the cover page to merged PDF
+            const coverPages = await mergedPdf.copyPages(coverDoc, coverDoc.getPageIndices());
+            const firstCoverPage = coverPages[0];
+
+            if (firstCoverPage && selectedPDFs.length > 0) {
+                const { width, height } = firstCoverPage.getSize();
+                const contentStartY = height - startY;
+
+                // Add "Selected PDFs:" heading
+                firstCoverPage.drawText(headerText, {
+                    x: leftMargin,
+                    y: contentStartY,
+                    size: headingSize,
+                    color: headerTextColor,
+                });
+
+                // Add PDF names as numbered list
+                let cursorY = contentStartY - headerSpacing;
+                const maxWidth = width - rightMargin;
+
+                for (let i = 0; i < selectedPDFs.length; i++) {
+                    if (cursorY <= bottomMargin) break;
+
+                    const pdfName = selectedPDFs[i].replace('pdfs/', '').replace('.pdf', '');
+                    const indexedName = `${i + 1}. ${pdfName}`;
+                    const truncatedName = truncateText(indexedName, maxWidth, bodyTextSize);
+
+                    firstCoverPage.drawText(truncatedName, {
+                        x: listIndent,
+                        y: cursorY,
+                        size: bodyTextSize,
+                        color: bodyTextColor,
+                    });
+
+                    cursorY -= bodyTextLineHeight;
+                }
+            }
+
+            coverPages.forEach((page) => mergedPdf.addPage(page));
+            return true;
+
+        } catch (coverError) {
+            console.error('Could not create cover page:', coverError.message);
+            return false;
+        }
+    }
+
+    // ============================================================================
+    // PDF MERGING FUNCTIONS
+    // ============================================================================
+    
     async function downloadMergedPDF() {
         const $downloadBtn = $('#download-btn');
         const originalText = $downloadBtn.text();
@@ -299,6 +387,10 @@ $(document).ready(function () {
         try {
             const mergedPdf = await PDFLib.PDFDocument.create();
 
+            // Add cover page first
+            await createCoverPage(mergedPdf);
+
+            // Add selected PDFs
             for (const pdfPath of selectedPDFs) {
                 const response = await fetch(pdfPath);
                 if (!response.ok) {
@@ -336,5 +428,6 @@ $(document).ready(function () {
         }
     }
 
+    // Initialize the application
     updateDownloadButton();
 });
