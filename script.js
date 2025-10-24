@@ -9,7 +9,7 @@ $(document).ready(function () {
     // ============================================================================
     // ACCORDION FUNCTIONALITY
     // ============================================================================
-    
+
     function toggleAccordion($this) {
         const $accordionGroup = $this.closest('.accordion-group, .right-panel');
         const $accordionContent = $accordionGroup.find('.accordion-content, .selected-content');
@@ -49,7 +49,7 @@ $(document).ready(function () {
     // ============================================================================
     // EVENT HANDLERS
     // ============================================================================
-    
+
     // Accordion toggle - click and keyboard
     $('.accordion-header').on('click keydown', function (e) {
         if (e.type === 'click' || (e.type === 'keydown' && (e.key === 'Enter' || e.key === ' '))) {
@@ -132,7 +132,7 @@ $(document).ready(function () {
     // ============================================================================
     // KEYBOARD NAVIGATION
     // ============================================================================
-    
+
     // Keyboard navigation for PDF items
     $('.pdf-item').on('keydown', function (e) {
         const $this = $(this);
@@ -194,7 +194,7 @@ $(document).ready(function () {
     // ============================================================================
     // PDF MANAGEMENT FUNCTIONS
     // ============================================================================
-    
+
     function addPDFToSelection(pdfName, $icon) {
         if (selectedPDFs.includes(pdfName)) return;
 
@@ -278,15 +278,15 @@ $(document).ready(function () {
     // ============================================================================
     // COVER PAGE FUNCTIONS
     // ============================================================================
-    
+
     function truncateText(text, maxWidth, fontSize) {
         const avgCharWidth = fontSize * 0.6;
         const maxChars = Math.floor(maxWidth / avgCharWidth);
-        
+
         if (text.length <= maxChars) {
             return text;
         }
-        
+
         return text.substring(0, maxChars - 3) + '...';
     }
 
@@ -295,7 +295,39 @@ $(document).ready(function () {
         return text.length * avgCharWidth;
     }
 
-    async function createCoverPage(mergedPdf) {
+    function createClickablePDFLink(page, x, y, width, height, targetPageNumber) {
+        try {
+            // Create a simple link annotation using PDF-lib's annotation system
+            const linkAnnotation = {
+                Type: 'Annot',
+                Subtype: 'Link',
+                Rect: [x, y, x + width, y + height],
+                Border: [0, 0, 0], // No border
+                A: {
+                    Type: 'Action',
+                    S: 'GoTo',
+                    D: [targetPageNumber, 'XYZ', null, null, null]
+                }
+            };
+
+            // Add the annotation to the page's annotation array
+            if (!page.node.Annots) {
+                page.node.Annots = page.doc.context.register(page.doc.context.obj([]));
+            }
+
+            // Register the annotation object
+            const registeredAnnotation = page.doc.context.register(page.doc.context.obj(linkAnnotation));
+            page.node.Annots.push(registeredAnnotation);
+
+            console.log(`Created clickable link for page ${targetPageNumber} at (${x}, ${y})`);
+            return true;
+        } catch (error) {
+            console.error('Failed to create clickable link:', error);
+            return false;
+        }
+    }
+
+    async function createCoverPage(mergedPdf, pdfPageNumbers = []) {
         try {
             const coverUrl = 'pdfs/pdf-cover.pdf';
             const headerText = 'Selected PDFs:';
@@ -318,7 +350,7 @@ $(document).ready(function () {
             if (!coverResponse.ok) {
                 throw new Error(`Cover fetch failed: ${coverResponse.status}`);
             }
-            
+
             const coverBytes = await coverResponse.arrayBuffer();
             const coverDoc = await PDFLib.PDFDocument.load(coverBytes, { ignoreEncryption: true });
 
@@ -338,7 +370,7 @@ $(document).ready(function () {
                     color: headerTextColor,
                 });
 
-                // Add PDF names as numbered list
+                // Add PDF names as numbered list with clickable links
                 let cursorY = contentStartY - headerSpacing;
                 const maxWidth = width - rightMargin;
 
@@ -349,12 +381,44 @@ $(document).ready(function () {
                     const indexedName = `${i + 1}. ${pdfName}`;
                     const truncatedName = truncateText(indexedName, maxWidth, bodyTextSize);
 
+                    // Calculate text width for link area
+                    const textWidth = calculateTextWidth(truncatedName, bodyTextSize);
+                    const linkHeight = bodyTextLineHeight;
+
+                    // Draw text on the cover page
                     firstCoverPage.drawText(truncatedName, {
                         x: listIndent,
                         y: cursorY,
                         size: bodyTextSize,
                         color: bodyTextColor,
                     });
+
+                    // Create clickable link to the first page of this PDF (if page numbers are available)
+                    if (pdfPageNumbers.length > 0 && pdfPageNumbers[i]) {
+                        const targetPageNumber = pdfPageNumbers[i];
+                        console.log(`Creating link for "${pdfName}" to page ${targetPageNumber}`);
+
+                        try {
+                            const linkCreated = createClickablePDFLink(
+                                firstCoverPage,
+                                listIndent,
+                                cursorY - linkHeight, // Adjust Y coordinate for link area
+                                textWidth,
+                                linkHeight,
+                                targetPageNumber
+                            );
+
+                            if (linkCreated) {
+                                console.log(`✅ Successfully created clickable link for "${pdfName}"`);
+                            } else {
+                                console.warn(`❌ Failed to create clickable link for "${pdfName}"`);
+                            }
+                        } catch (linkError) {
+                            console.error(`❌ Error creating clickable link for "${pdfName}":`, linkError);
+                        }
+                    } else {
+                        console.log(`⚠️ No page number available for "${pdfName}" (pdfPageNumbers: ${JSON.stringify(pdfPageNumbers)})`);
+                    }
 
                     cursorY -= bodyTextLineHeight;
                 }
@@ -372,7 +436,7 @@ $(document).ready(function () {
     // ============================================================================
     // PDF MERGING FUNCTIONS
     // ============================================================================
-    
+
     async function downloadMergedPDF() {
         const $downloadBtn = $('#download-btn');
         const originalText = $downloadBtn.text();
@@ -386,12 +450,16 @@ $(document).ready(function () {
 
         try {
             const mergedPdf = await PDFLib.PDFDocument.create();
+            const pdfPageNumbers = []; // Track page numbers for each PDF
 
             // Add cover page first
-            await createCoverPage(mergedPdf);
+            await createCoverPage(mergedPdf, pdfPageNumbers);
 
-            // Add selected PDFs
-            for (const pdfPath of selectedPDFs) {
+            // Add selected PDFs and track their starting page numbers
+            for (let i = 0; i < selectedPDFs.length; i++) {
+                const pdfPath = selectedPDFs[i];
+                console.log(`Processing PDF ${i + 1}: ${pdfPath}`);
+
                 const response = await fetch(pdfPath);
                 if (!response.ok) {
                     throw new Error(`Failed to load PDF: ${pdfPath}`);
@@ -400,8 +468,15 @@ $(document).ready(function () {
                 const pdfBytes = await response.arrayBuffer();
                 const pdf = await PDFLib.PDFDocument.load(pdfBytes);
                 const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+
+                // Record the starting page number for this PDF (after cover page)
+                pdfPageNumbers[i] = mergedPdf.getPageCount() + 1;
+                console.log(`📄 PDF "${pdfPath}" will start at page ${pdfPageNumbers[i]}`);
+
                 pages.forEach(page => mergedPdf.addPage(page));
             }
+
+            console.log(`📊 Final page numbers array: ${JSON.stringify(pdfPageNumbers)}`);
 
             const pdfBytes = await mergedPdf.save();
             const blob = new Blob([pdfBytes], { type: 'application/pdf' });
